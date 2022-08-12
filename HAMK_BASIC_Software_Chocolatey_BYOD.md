@@ -31,7 +31,7 @@ choco install powershell-core  git vscode putty greenshot notepadplusplus winscp
 
 ## Step 3: Installing some useful VScode addons 
 * Restart your Powershell session 
-* Run the following command 
+* Run the following commands 
 ```
 code --install-extension ms-vscode.powershell
 code --install-extension vsls-contrib.gistfs
@@ -40,3 +40,17 @@ code --install-extension ms-vscode-remote.remote-containers
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack
 ```
+## Further Actions
+ ***Upon successfull installation of the above mentioned programs, you will come accross the following two windows:*** 
+
+### Create GitHub Account
+If you already have a **GitHub account**, you can sign in and if you don't have one, you can create a new GitHub account. Please use your personal email id to create a GitHub account. 
+
+![Githhub account creation](/assets/githubaccount.png "Please click Create your free account or Sign in to GitHUb.com depending on your situation")
+
+### Configure Git
+You need to configure Git by providing your full name and email address. Use the same email address that you used to sign up to GitHub.
+
+![Configure Git](/assets/configureGit.png "Please use your Full Name and email ")
+
+***Congratulations, you have installed most of the required applications that you need while studying at HAMK. Over time, you will need to install additional applications.***
