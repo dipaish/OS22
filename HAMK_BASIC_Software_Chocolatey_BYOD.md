@@ -15,10 +15,18 @@ The following guidelines utilizes the **chocolatey package manager** for **Windo
 ```
 rm C:\ProgramData\chocolatey -erroraction 'silentlycontinue'
 ```
-* Run the following command in Powershell
+* Run the following command in Powershell to install CHOCOLATEY
 ```
 Set-ExecutionPolicy Bypass -Scope Process -Force; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing | iex
 ```
 
-# The list of programs that are installed: 
+## Step 2: Programs Installation
+### The list of apss that you are going to install is as below: <br>
+> powershell-core, git, vscode, putty, greenshot, notepadplusplus, winscp, 7zip,  paint.net, windirstat, zoom, sudo, vmrc, vmware-horizon-client, github-desktop & obs-studio
+### To install the above mentioned programs run the following script
+```
+choco install powershell-core  git vscode putty greenshot notepadplusplus winscp 7zip paint.net windirstat zoom sudo vmrc vmware-horizon-client github-desktop obs-studio -y
+
+```
+
 
