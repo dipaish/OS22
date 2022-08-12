@@ -1,4 +1,4 @@
-# Installation of basic programs (HAMK BYOD) in students' personal devices (Windows 10/11). 
+# Installation of basic programs (HAMK BYOD) in students' personal devices (Windows). 
 
 The following guidelines utilizes the **chocolatey package manager** for **Windows** to install several applications that are used in different modules in HAMK. 
 
