@@ -10,7 +10,7 @@ copyright: (c) - ©
 copyleft: (cleft)
 sound recording copyright: (p) - ℗
 theme: jekyll-theme-cayman
-baseurl: "/docs"
+baseurl: "OS22"
 categories: jekyll update
 markdown: kramdown
 header_pages:
