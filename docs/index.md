@@ -1,5 +1,3 @@
-hello world
-<a href="HAMK_BASIC_Software_Chocolatey_BYOD.md">Link</a>
 # Installation of basic programs (HAMK BYOD) in students' personal devices (Windows). 
 
 The following guidelines utilizes the **chocolatey package manager** for **Windows** to install several applications that are used in different modules in HAMK. 
