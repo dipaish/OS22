@@ -1,5 +1,4 @@
 theme: jekyll-theme-cayman
 baseurl: "OS22"
-title:  "Welcome to Jekyll!"
 categories: jekyll update
 markdown: kramdown
