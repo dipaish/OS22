@@ -1,3 +1,9 @@
 theme: jekyll-theme-cayman
 baseurl: "OS22"
 markdown: kramdown
+header_pages:
+ - index.html
+ - archives.html
+ - categories.html
+ - tags.html
+ - about.md
