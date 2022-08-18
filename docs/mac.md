@@ -1,3 +1,4 @@
+{% include topnav.html %}
 # Installation of basic programs (HAMK BYOD) in students' personal devices (Mac Users)
 The following guidelines utilizes the **[brew](https://brew.sh/) package manager** for **macOS** to install several applications that are used in different modules in HAMK. 
 ## Step 1: Install brew
@@ -36,3 +37,5 @@ You need to configure Git by providing your full name and email address. Use the
 ![Configure Git](/assets/configureGit.png "Please use your Full Name and email ")
 
 ***Congratulations, you have installed most of the required applications that you need while studying at HAMK. Over time, you will need to install additional applications.***
+
+{% include footer.html %}
