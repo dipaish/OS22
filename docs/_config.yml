@@ -1,7 +1,9 @@
 title: HAMK BYOD
+email: your-email@domain.com
+author: Deepak KC
 #to hide view on github page
 github:
   is_project_page: false
-theme: jekyll-theme-dinky
+theme: jekyll-theme-cayman
 baseurl: "OS22"
 
