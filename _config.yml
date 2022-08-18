@@ -13,6 +13,3 @@ theme: jekyll-theme-cayman
 baseurl: "OS22"
 categories: jekyll update
 markdown: kramdown
-header_pages:
-  - HAMK_BASIC_Software_Chocolatey_BYOD.md
-  - index1.md
