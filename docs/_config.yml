@@ -1,9 +1,8 @@
-title: Your awesome title
+title: HAMK BYOD
 email: your-email@domain.com
-author: GitHub User
+author: Deepak KC
 
-# Copyright setting
-# You can use any html code, currently below placeholders are available:
+
 theme: jekyll-theme-cayman
 baseurl: "OS22"
 
