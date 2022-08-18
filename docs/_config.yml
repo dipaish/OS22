@@ -1,33 +1,4 @@
-lang: en-US
 title: HAMK BYOD
-email:
-description:
-baseurl: # the optional subpath of your site, e.g. "/blog"
-url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-author:
-  name:
-  twitter:
-  picture:
-twitter_username:
-github_username:
-logo: # path of site logo, e.g. "/assets/images/logo.png"
-search: # true, false (default)
-search_full_content: false # true, false (default)
-search_provider: # lunr (default), algolia
-algolia:
-  application_id: # YOUR_APPLICATION_ID
-  index_name: # YOUR_INDEX_NAME
-  search_only_api_key: # YOUR_SEARCH_ONLY_API_KEY
-  powered_by: false
-
-# Build settings
-markdown: kramdown
-theme: jekyll-theme-basically-basic
-plugins: # previsously gems
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-
-# Pagination - https://jekyllrb.com/docs/pagination/
-paginate: 10
-paginate_path: /page:num/
+description: Following these guidelines, you will be able to set up your personal device for educational purposes.
+show_downloads: true
+theme: jekyll-theme-dinky
