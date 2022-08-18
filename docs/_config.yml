@@ -6,5 +6,4 @@ author: GitHub User
 # You can use any html code, currently below placeholders are available:
 theme: jekyll-theme-cayman
 baseurl: "OS22"
-categories: jekyll update
-markdown: kramdown
+
