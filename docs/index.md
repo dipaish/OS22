@@ -1,3 +1,11 @@
+# Getting Started with Docker
+This tutorial will hel you to set up Docker-Desktop and learn very basics of docker such as running a container, stopping it and removing it. 
+
+- [Setting up your Computer](#setting-up-your-computer)
+- [Check Docker Installation](#check-your-docker-installation)
+- [ Running your first Container](#running-your-first-container) 
+- [Terminologies](#small-title) 
+- [Exercise](#small-title) 
 # Setting up your Computer
 
 The *getting started* guide on Docker has detailed instructions for setting up Docker on [Mac](https://docs.docker.com/docker-for-mac/), [Linux](https://docs.docker.com/engine/installation/linux/) and [Windows](https://docs.docker.com/docker-for-windows/).
