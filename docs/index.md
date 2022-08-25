@@ -1,12 +1,7 @@
 # Getting Started with Docker
 This tutorial will hel you to set up Docker-Desktop and learn very basics of docker such as running a container, stopping it and removing it. 
 
-- [Setting up your Computer](#setting-up-your-computer)
-- [Check Docker Installation](#check-your-docker-installation)
-- [ Running your first Container](#running-your-first-container) 
-- [Terminologies](#small-title) 
-- [Exercise](#small-title) 
-# Setting up your Computer
+## Setting up your Computer
 
 The *getting started* guide on Docker has detailed instructions for setting up Docker on [Mac](https://docs.docker.com/docker-for-mac/), [Linux](https://docs.docker.com/engine/installation/linux/) and [Windows](https://docs.docker.com/docker-for-windows/).
 
@@ -16,7 +11,7 @@ The *getting started* guide on Docker has detailed instructions for setting up D
 
 *All commands work in either bash or Powershell on Windows*
 
-# Check your Docker Installation
+## Check your Docker Installation
 #### Once you are done installing Docker, test your Docker installation by running the following:
 
 ```
@@ -122,7 +117,7 @@ Running the `run` command with the `-it` flags attaches us to an interactive tty
 
  To find out more about `run`, use `docker run --help` to see a list of all flags it supports. As you proceed further, we'll see a few more variants of `docker run`.
 
-### Terminology
+# Terminology
 In the last section, you saw a lot of Docker-specific jargon which might be confusing to some. So before you go further, let's clarify some terminology that is used frequently in the Docker ecosystem.
 
 - *Images* - The file system and configuration of our application which are used to create containers. To find out more about a Docker image, run `docker inspect alpine`. In the demo above, you used the `docker pull` command to download the **alpine** image. When you executed the command `docker run hello-world`, it also did a `docker pull` behind the scenes to download the **hello-world** image.
@@ -130,7 +125,8 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - *Docker daemon* - The background service running on the host that manages building, running and distributing Docker containers.
 - *Docker client* - The command line tool that allows the user to interact with the Docker daemon.
 - *Docker Store* - A [registry](https://store.docker.com/) of Docker images, where you can find trusted and enterprise ready containers, plugins, and Docker editions. You'll be using this later in this tutorial.
-### Exercise 
+
+# Exercise 
 - Your task is to run a static website in a container
 - You will use an existing image [static-site](https://hub.docker.com/r/dockersamples/static-site)
 - You are required download and run the image in detached mode. (docker run )
