@@ -51,7 +51,7 @@ alpine                 latest              c51f86c28340        4 weeks ago      
 hello-world             latest              690ed74de00f       5 months ago        960 B
 ```
 
-### 1.1 Docker Run
+### Docker Run
 Great! Let's now run a Docker **container** based on this image. To do that you are going to use the `docker run` command.
 
 ```
@@ -122,7 +122,7 @@ Running the `run` command with the `-it` flags attaches us to an interactive tty
 
  To find out more about `run`, use `docker run --help` to see a list of all flags it supports. As you proceed further, we'll see a few more variants of `docker run`.
 
-### 1.2 Terminology
+### Terminology
 In the last section, you saw a lot of Docker-specific jargon which might be confusing to some. So before you go further, let's clarify some terminology that is used frequently in the Docker ecosystem.
 
 - *Images* - The file system and configuration of our application which are used to create containers. To find out more about a Docker image, run `docker inspect alpine`. In the demo above, you used the `docker pull` command to download the **alpine** image. When you executed the command `docker run hello-world`, it also did a `docker pull` behind the scenes to download the **hello-world** image.
@@ -130,7 +130,7 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - *Docker daemon* - The background service running on the host that manages building, running and distributing Docker containers.
 - *Docker client* - The command line tool that allows the user to interact with the Docker daemon.
 - *Docker Store* - A [registry](https://store.docker.com/) of Docker images, where you can find trusted and enterprise ready containers, plugins, and Docker editions. You'll be using this later in this tutorial.
-### 1.3 Exercise 
+### Exercise 
 - Your task is to run a static website in a container
 - You will use an existing image [static-site](https://hub.docker.com/r/dockersamples/static-site)
 - You are required download and run the image in detached mode. (docker run )
