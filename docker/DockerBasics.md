@@ -8,6 +8,7 @@ The *getting started* guide on Docker has detailed instructions for setting up D
 
 *All commands work in either bash or Powershell on Windows*
 
+# Check your Docker Installation
 #### Once you are done installing Docker, test your Docker installation by running the following:
 
 ```
