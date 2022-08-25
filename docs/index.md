@@ -27,6 +27,10 @@ Hello from Docker.
 This message shows that your installation appears to be working correctly.
 ...
 ```
+# The Docker Dashboard
+It provides the quick view of the containers running on your mahcine. You have quick access to container logs. You can get a shell inside the container. You can easily manage conatainers such as stop, start or remove. 
+![Docker Dashboard](assets/docker.png "Docker Dashboard").
+
 # Running your first Container
 
 In this section, you are going to run an [Alpine Linux](http://www.alpinelinux.org/) container (a lightweight linux distribution) on your system and get a taste of the `docker run` command.
