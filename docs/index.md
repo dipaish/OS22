@@ -169,7 +169,7 @@ $ docker port static-site
 ```bash
 $ docker run --name static-site-2 -e AUTHOR="Your Name" -d -p 8888:80 dockersamples/static-site
 ```
-# Remove all containers since you don't need them any more. Remember to stop before deleting a container 
+### Remove all containers since you don't need them any more. Remember to stop before deleting a container 
 ```bash
 - docker stop continaername/id
 - docker remove continaername/id
