@@ -75,11 +75,11 @@ Now that you have a better understanding of images, it's time to create your own
 
 ### Example of a docker file 
 
-### Build the image
+### Build your first image
 
-### Run your image
+### Run your first image
 
-### Push your image
+### Push your first image
  
 
 **The goal of this exercise is to create a Docker image which will run a Flask app.**
