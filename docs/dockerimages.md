@@ -68,9 +68,9 @@ Another key concept is the idea of _official images_ and _user images_. (Both of
 
 ### 2.1 Create your first image
 
->**Note:** The code for this section is in this repository in the [flask-app](https://github.com/docker/labs/tree/master/beginner/flask-app) directory.
 
-Now that you have a better understanding of images, it's time to create your own. Our goal here is to create an image that sandboxes a small [Flask](http://flask.pocoo.org) application.
+
+Now that you have a better understanding of images, it's time to create your own. 
 
 **The goal of this exercise is to create a Docker image which will run a Flask app.**
 
