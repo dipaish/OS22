@@ -1,4 +1,4 @@
-# Getting Started with Docker
+# 1. Getting Started with Docker
 This tutorial will hel you to set up Docker-Desktop and learn very basics of docker such as running a container, stopping it and removing it. 
 
 ## Setting up your Computer
