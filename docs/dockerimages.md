@@ -30,7 +30,7 @@ $ docker pull ubuntu:20.04
 
 - If you do not specify the version number of the image then, as mentioned, the Docker client will default to a version named `latest`.
 
-For example to get the latest version of ubuntu image:
+***For example to get the latest version of ubuntu image:***
 
 ```bash
 $ docker pull ubuntu
@@ -38,8 +38,8 @@ $ docker pull ubuntu
 
 - You can get a new Docker image  from a registry (such as the **Docker hub**) or create your own. 
 - There are hundreds of thousands of images available on [Docker Store](https://store.docker.com). 
-- You can also **search for images** directly from the command line using `docker search`.
-#### For example, if you want to search a MySQL related Image 
+- You can also **search for images** directly from the command line using `docker search`.<br> <br>
+ ***For example, if you want to search a MySQL related Image*** 
 ```
 $ docker search mysql
 NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
@@ -48,17 +48,17 @@ mariadb                         MariaDB Server is a high performing open sou… 
 phpmyadmin                      phpMyAdmin - A web interface for MySQL and M…   614       [OK]       
 percona                         Percona Server is a fork of the MySQL relati…   584       [OK]
 ```
-An important distinction with regard to images is between _base images_ and _child images_.
+## Types of Images
 
-- **Base images** are images that have no parent images, usually images with an OS like ubuntu, alpine or debian.
+- **Base images** are images that have no parent images, usually images with an `OS` like ubuntu, alpine or debian.
 
-- **Child images** are images that build on base images and add additional functionality.
+- **Child images** are images that are build on base images and add additional functionality.
 
 Another key concept is the idea of _official images_ and _user images_. (Both of which can be base images or child images.)
 
 - **Official images** are Docker sanctioned images. Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. In the list of images above, the `python`, `node`, `alpine` and `nginx` images are official (base) images. To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
 
-- **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Docker Store user or organization name.
+- **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Dockerhub user or organization name.
 
 ### 2.3 Create your first image
 
