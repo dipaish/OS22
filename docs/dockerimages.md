@@ -73,7 +73,13 @@ Now that you have a better understanding of images, it's time to create your own
 - A Dockerfile is simply a text file that contains the build instructions for an image. It automates the image creation process.
 - The name of the file is  `Dockerfile`without any extension and the letter **D** is capital. 
 
+### Example of a docker file 
 
+### Build the image
+
+### Run your image
+
+### Push your image
  
 
 **The goal of this exercise is to create a Docker image which will run a Flask app.**
