@@ -1,4 +1,4 @@
-# Docker Images
+# 2. Docker Images
 
 Previous, we utilized **images** from the **registry**  and asked the Docker client to run a container **based** on that image. 
 
@@ -56,11 +56,17 @@ percona                         Percona Server is a fork of the MySQL relati… 
 
 Another key concept is the idea of _official images_ and _user images_. (Both of which can be base images or child images.)
 
-- **Official images** are Docker sanctioned images. Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. In the list of images above, the `python`, `node`, `alpine` and `nginx` images are official (base) images. To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
+**Official images**
+- Images that are verified by Docker.
+- A dedicated team is responsible for reviewing and publishing all Official Repositories content. 
+- ***Examples:*** `python`, `node`, `alpine` and `nginx` images are official (base) images. To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
 
-- **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Dockerhub user or organization name.
+**User images** 
+- Images created and shared by users like you and me. 
+- They build on base images and add additional functionality. 
+- Typically these are formatted as `user/image-name`. The `user` value in the image name is your Dockerhub user or organization name.
 
-### 2.3 Create your first image
+## 2.1 Create your first image
 
 >**Note:** The code for this section is in this repository in the [flask-app](https://github.com/docker/labs/tree/master/beginner/flask-app) directory.
 
