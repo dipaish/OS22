@@ -1,25 +1,16 @@
-### 2.2 Docker Images
+# Docker Images
 
-In this section, let's dive deeper into what Docker images are. You will build your own image, use that image to run an application locally, and finally, push some of your own images to Docker Cloud.
+Previous, we utilized **images** from the **registry**  and asked the Docker client to run a container **based** on that image. 
 
-Docker images are the basis of containers. In the previous example, you **pulled** the *dockersamples/static-site* image from the registry and asked the Docker client to run a container **based** on that image. To see the list of images that are available locally on your system, run the `docker images` command.
+To see the list of images that are available locally on your system, run the `docker images` command.
 
 ```bash
-$ docker images
-REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
-dockersamples/static-site   latest              92a386b6e686        2 hours ago        190.5 MB
-nginx                  latest              af4b3d7d5401        3 hours ago        190.5 MB
-python                 2.7                 1c32174fd534        14 hours ago        676.8 MB
-postgres               9.4                 88d845ac7a88        14 hours ago        263.6 MB
-containous/traefik     latest              27b4e0c6b2fd        4 days ago          20.75 MB
-node                   0.10                42426a5cba5f        6 days ago          633.7 MB
-redis                  latest              4f5f397d4b7c        7 days ago          177.5 MB
-mongo                  latest              467eb21035a8        7 days ago          309.7 MB
-alpine                 3.3                 70c557e50ed6        8 days ago          4.794 MB
-java                   7                   21f6ce84e43c        8 days ago          587.7 MB
+ docker images
+
 ```
 
-Above is a list of images that I've pulled from the registry and those I've created myself (we'll shortly see how). You will have a different list of images on your machine. The `TAG` refers to a particular snapshot of the image and the `ID` is the corresponding unique identifier for that image.
+Above is a list of images that I've pulled from the registry. You will have a different list of images on your machine. 
+The `TAG` refers to a particular snapshot of the image and the `ID` is the corresponding unique identifier for that image.
 
 For simplicity, you can think of an image akin to a git repository - images can be [committed](https://docs.docker.com/engine/reference/commandline/commit/) with changes and have multiple versions. When you do not provide a specific version number, the client defaults to `latest`.
 
