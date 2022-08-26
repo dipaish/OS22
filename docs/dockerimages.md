@@ -5,31 +5,49 @@ Previous, we utilized **images** from the **registry**  and asked the Docker cli
 To see the list of images that are available locally on your system, run the `docker images` command.
 
 ```bash
- docker images
-
+$ docker images
 ```
+**Example**
+```
+$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+alpine        latest    9c6f07244728   2 weeks ago     5.54MB
+hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
+```
+Above is a list of **images** that I've pulled from the registry. You will have a different list of images on your machine. 
 
-Above is a list of images that I've pulled from the registry. You will have a different list of images on your machine. 
-The `TAG` refers to a particular snapshot of the image and the `ID` is the corresponding unique identifier for that image.
+- The `TAG` refers to a particular snapshot of the image and the `ID` is the corresponding unique identifier for that image.
 
-For simplicity, you can think of an image akin to a git repository - images can be [committed](https://docs.docker.com/engine/reference/commandline/commit/) with changes and have multiple versions. When you do not provide a specific version number, the client defaults to `latest`.
+**Images** can be [committed](https://docs.docker.com/engine/reference/commandline/commit/) with changes and have multiple versions. 
+
+>When you do not provide a specific version number, the client defaults to `latest`.
 
 For example you could pull a specific version of `ubuntu` image as follows:
 
 ```bash
-$ docker pull ubuntu:12.04
+$ docker pull ubuntu:20.04
 ```
 
-If you do not specify the version number of the image then, as mentioned, the Docker client will default to a version named `latest`.
+- If you do not specify the version number of the image then, as mentioned, the Docker client will default to a version named `latest`.
 
-So for example, the `docker pull` command given below will pull an image named `ubuntu:latest`:
+For example to get the latest version of ubuntu image:
 
 ```bash
 $ docker pull ubuntu
 ```
 
-To get a new Docker image you can either get it from a registry (such as the Docker Store) or create your own. There are hundreds of thousands of images available on [Docker Store](https://store.docker.com). You can also search for images directly from the command line using `docker search`.
-
+- You can get a new Docker image  from a registry (such as the **Docker hub**) or create your own. 
+- There are hundreds of thousands of images available on [Docker Store](https://store.docker.com). 
+- You can also **search for images** directly from the command line using `docker search`.
+#### For example, if you want to search a MySQL related Image 
+```
+$ docker search mysql
+NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql                           MySQL is a widely used, open-source relation…   13077     [OK]
+mariadb                         MariaDB Server is a high performing open sou…   5001      [OK]
+phpmyadmin                      phpMyAdmin - A web interface for MySQL and M…   614       [OK]       
+percona                         Percona Server is a fork of the MySQL relati…   584       [OK]
+```
 An important distinction with regard to images is between _base images_ and _child images_.
 
 - **Base images** are images that have no parent images, usually images with an OS like ubuntu, alpine or debian.
