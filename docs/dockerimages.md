@@ -47,8 +47,8 @@ mysql                           MySQL is a widely used, open-source relation… 
 mariadb                         MariaDB Server is a high performing open sou…   5001      [OK]
 phpmyadmin                      phpMyAdmin - A web interface for MySQL and M…   614       [OK]       
 percona                         Percona Server is a fork of the MySQL relati…   584       [OK]
-```
-## Types of Images
+```   
+### Types of Images
 
 - **Base images** are images that have no parent images, usually images with an `OS` like ubuntu, alpine or debian.
 
@@ -66,7 +66,7 @@ Another key concept is the idea of _official images_ and _user images_. (Both of
 - They build on base images and add additional functionality. 
 - Typically these are formatted as `user/image-name`. The `user` value in the image name is your Dockerhub user or organization name.
 
-## 2.1 Create your first image
+### 2.1 Create your first image
 
 >**Note:** The code for this section is in this repository in the [flask-app](https://github.com/docker/labs/tree/master/beginner/flask-app) directory.
 
