@@ -67,10 +67,14 @@ Another key concept is the idea of _official images_ and _user images_. (Both of
 - Typically these are formatted as `user/image-name`. The `user` value in the image name is your Dockerhub user or organization name.
 
 ### 2.1 Create your first image
+Now that you have a better understanding of images, it's time to create your own.
+
+#### Docker File
+- A Dockerfile is simply a text file that contains the build instructions for an image. It automates the image creation process.
+- The name of the file is  `Dockerfile`without any extension and the letter **D** is capital. 
 
 
-
-Now that you have a better understanding of images, it's time to create your own. 
+ 
 
 **The goal of this exercise is to create a Docker image which will run a Flask app.**
 
