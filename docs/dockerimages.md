@@ -125,7 +125,8 @@ COPY hello.sh .
 - The Docker daemon runs instrcutions in the Docker file one by one. 
 - Before running the instructions, the Docker Daemon validates the file and if the syntax is incorrect, it returns an error. 
 - Each run instruction is independent and it causes a new image to be created.
-- ****Lets update, install nano, add add executable permission to the hello.sh file****
+- ***Lets update, install nano, add add executable permission to the hello.sh file***
+
 ```  
 FROM alpine:3.14 
 WORKDIR /usr/src/app/  
@@ -141,7 +142,7 @@ RUN chmod +x hello.sh
 - There can only be one CMD per a Dockerfile/Image. 
 - If you need to run multiple commands, the best way to do that is to have the CMD run a script. 
 - CMD requires that you tell it where to run the command. 
-- ****Lets run our simple script at the start-up****
+- ***Lets run our simple script at the start-up***
 
 ```  
 #Start from the alpine image 
@@ -165,17 +166,17 @@ RUN chmod +x hello.sh
 #it runs the script at the start-up
 CMD ./hello.sh
 ``` 
-****Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)****
+***Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)***
+
 ### Build your first image
 Now that our docker file is ready, we will use ***[docker build](https://docs.docker.com/engine/reference/commandline/build/)*** command to build our image. 
-- docker build command will look for Dockerfile and build as per instructions in the Dockerfile. 
-- Create a directory in your device and save the Dockerfile and hello.sh in the newly created directory. 
+- **docker build** command will look for Dockerfile and build as per instructions in the Dockerfile. 
+  - Let's create a directory and save the Dockerfile and hello.sh in the directory.
+   - Get into the directory with the CD command and exectue the following command. 
 
 > ***Note: Please use IDE such as Visual Studio code to create Dockerfile. If you use notepad, it adds .txt extension to the file and the build won't work.***
 
-- Get into the directory with the CD command and exectue the following command.
-  
-The following command looks for the Dockerfile. The (.) specifies where to build and -t gives it a name.
+ The following command looks for the Dockerfile. The (.) specifies where to build and -t gives it a name.
 ```
 PS D:\dock1> docker build . -t my-first-image
 [+] Building 8.8s (11/11) FINISHED
@@ -237,7 +238,8 @@ PS D:\dock1> docker build . -t my-first-image2
  => [internal] load metadata for docker.io/library/alpine:3.14
  ```
 
- #### Check the size of image
+#### Check the size of image
+
 ```
 PS D:\dock1> docker images
 REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
@@ -245,9 +247,6 @@ my-first-image2   latest    54ffbbbdf9b1   28 seconds ago   7.76MB
 my-first-image1   latest    d7a77ec9a86f   5 minutes ago    15.8MB
 my-first-image    latest    4e9767cedcf4   16 minutes ago   15.8MB
 ```
-
-
-
 ###  Push your first image
 Now that you've created and tested your image, you can push it to [Docker Hub](hhttps://hub.docker.com/).
 
@@ -266,7 +265,7 @@ docker push YOUR_USERNAME/my-first-image
 
 
 
-##### Now that you are done with this container, stop and remove it since you won't be using it again.
+> ***Now that you are done with this container, stop and remove it since you won't be using it again.***
 
 >**Note:** If you want to learn more about Dockerfiles, check out [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/).
 
