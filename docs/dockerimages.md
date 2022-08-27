@@ -71,12 +71,109 @@ Now that you have a better understanding of images, it's time to create your own
 
 #### Docker File
 - A Dockerfile is simply a text file that contains the build instructions for an image. It automates the image creation process.
+  - It specifies a base image.
+  - It includes instructions to install required tools for your app. 
+  - It includes intructins to install libraries, dependencies and pacakages. 
+  - It then builds your app. 
+- It is a step by step set of standard instructions such as `FROM`, `COPY`, `RUN`, `ENV`, `EXPOSE`, `CMD` 
+- The commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
+
 - The name of the file is  `Dockerfile` without any extension and the letter **D** is capital. 
 
-### Example of a docker file 
+- Write only the minimum set of steps that is needed for your app. Avoid unnecessary components. 
 
+#### Dockerfile basic commands 
+***FROM***
+ - The **FROM** command must be the first line in the Dockerfile. Since images are made up of layers, you can utilize one of those images as the foundation for your own. The **FROM** command defines your **base layer**. 
+```  
+FROM alpine:3.14 
+``` 
+> The above line specifies that the base image is going to be alpine:3.14. 
+
+- It accepts the image's name as parameters. You can optionally include the image version and the maintainer's Docker Hub username in the following format:`username/imagename:version`.
+
+***WORKDIR***
+- It defines the working directory of a Docker Conainter.
+- Any RUN, CMD, COPY or ENTRYPOINT COMMAND will be executed in the specified working directory.
+
+##### Lets specify our working directory in the Docker file. 
+
+```  
+FROM alpine:3.14 
+WORKDIR /usr/src/app 
+``` 
+***COPY***
+- It copies local files or directories into the container.
+
+ COPY `<src>` `<destination>`
+
+ To understant the concept, let's write a simple script called **hello.sh** in your device. We will copy this file to the container and ask to run at the time of building our image.
+
+ ```
+ #!/bin/sh
+ echo "Hello, World, I am learning to write a Dockerfile!"
+ ```
+****Now our Docker file looks like this**** 
+```  
+FROM alpine:3.14 
+WORKDIR /usr/src/app  
+COPY hello.sh .
+``` 
+***RUN***
+- It allows you to install your applications and pacakages you need for your app. 
+-  For each RUN command, Docker will run the command then create a new layer of the image. 
+- The Docker daemon runs instrcutions in the Docker file one by one. 
+- Before running the instructions, the Docker Daemon validates the file and if the syntax is incorrect, it returns an error. 
+- Each run instruction is independent and it causes a new image to be created.
+- ****Lets update, install nano, add add executable permission to the hello.sh file****
+```  
+FROM alpine:3.14 
+WORKDIR /usr/src/app  
+COPY hello.sh .
+RUN apk update
+RUN apk add nano 
+RUN chmod +x hello.sh 
+``` 
+
+***CMD***
+- It defines the commands that will run on the Image at start-up. 
+- Unlike a RUN, this does not create a new layer for the Image, but simply runs the command. 
+- There can only be one CMD per a Dockerfile/Image. 
+- If you need to run multiple commands, the best way to do that is to have the CMD run a script. 
+- CMD requires that you tell it where to run the command. 
+- ****Lets run our simple script at the start-up****
+```  
+# Start from the alpine image 
+FROM alpine:3.14 
+
+# it defines the working directory
+WORKDIR /usr/src/app  
+
+# copies the script file to the container
+COPY hello.sh .
+
+# Installs updates
+RUN apk update
+
+# Installs nano text editor
+RUN apk add nano 
+
+# it adds executable permission to our script hello.sh
+RUN chmod +x hello.sh 
+
+# it runs the script at the start-up
+CMD ./hello.sh
+
+``` 
+****Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)****
 ### Build your first image
+Now that our docker file is ready, we will use ***[docker build](https://docs.docker.com/engine/reference/commandline/build/)*** command to build our image. 
+- docker build command will look for Dockerfile and build as per instructions in the Dockerfile. 
 
+The following command looks for the Dockerfile. The (.) specifies where to build and -t gives it a name.
+```
+docker build . -t my-first-image
+```
 ### Run your first image
 
 ### Push your first image
