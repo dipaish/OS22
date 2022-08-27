@@ -142,28 +142,28 @@ RUN chmod +x hello.sh
 - If you need to run multiple commands, the best way to do that is to have the CMD run a script. 
 - CMD requires that you tell it where to run the command. 
 - ****Lets run our simple script at the start-up****
+
 ```  
-# Start from the alpine image 
+#Start from the alpine image 
 FROM alpine:3.14 
 
-# it defines the working directory
+#it defines the working directory
 WORKDIR /usr/src/app/  
 
-# copies the script file to the container
+#copies the script file to the container
 COPY hello.sh .
 
-# Installs updates
+#Installs updates
 RUN apk update
 
-# Installs nano text editor
+#Installs nano text editor
 RUN apk add nano 
 
-# it adds executable permission to our script hello.sh
+#it adds executable permission to our script hello.sh
 RUN chmod +x hello.sh 
 
-# it runs the script at the start-up
+#it runs the script at the start-up
 CMD ./hello.sh
-
 ``` 
 ****Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)****
 ### Build your first image
@@ -208,6 +208,7 @@ hello.sh
 hello.sh  new.txt
 ```
 ### Lets remove the nano from our Dockerfile
+
 ```
 # Start from the alpine image 
 FROM alpine:3.14 
