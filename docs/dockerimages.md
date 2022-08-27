@@ -247,7 +247,7 @@ my-first-image2   latest    54ffbbbdf9b1   28 seconds ago   7.76MB
 my-first-image1   latest    d7a77ec9a86f   5 minutes ago    15.8MB
 my-first-image    latest    4e9767cedcf4   16 minutes ago   15.8MB
 ```
-###  Push your first image
+### Push your first image
 Now that you've created and tested your image, you can push it to [Docker Hub](hhttps://hub.docker.com/).
 
 ***First you have to login to your Docker Hub account***
