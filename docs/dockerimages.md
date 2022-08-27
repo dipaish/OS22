@@ -113,7 +113,7 @@ WORKDIR /usr/src/app/
  #!/bin/sh
  echo "Hello, World, I am learning to write a Dockerfile!"
  ```
-****Now our Docker file looks like this**** 
+***Now our Docker file looks like this***
 ```  
 FROM alpine:3.14 
 WORKDIR /usr/src/app/  
