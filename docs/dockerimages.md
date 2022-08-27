@@ -255,11 +255,50 @@ Now that you've created and tested your image, you can push it to [Docker Hub](h
 docker login
 ```
 Enter `YOUR_USERNAME` and `password` when prompted. 
-
+```bash
+PS D:\dock1> docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: deepakkc
+Password: 
+Login Succeeded
+```
 Now all you have to do is:
 
 ```bash
-docker push YOUR_USERNAME/my-first-image
+PS D:\dock1> docker tag  my-first-image2 deepakkc/my-first-image2
+PS D:\dock1> docker push deepakkc/my-first-image2
+Using default tag: latest
+The push refers to repository [docker.io/deepakkc/my-first-image2]
+e6244dc07df3: Pushed
+5d6c8546b9b6: Pushed
+596c0c0d55cf: Pushed
+```
+**Now yow you may delete your image and run it again. This time it will pull image from Docker Hub.**
+
+```
+PS D:\dock1> docker rmi deepakkc/my-first-image2 -f
+Untagged: deepakkc/my-first-image2:latest
+Untagged: deepakkc/my-first-image2@sha256:98d5f7439d211156871e8088ae5bf3a2289c9bf00
+PS D:\dock1> docker images
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+<none>            <none>    54ffbbbdf9b1   2 hours ago     7.76MB
+my-first-image1   latest    d7a77ec9a86f   2 hours ago     15.8MB
+my-first-image    latest    4e9767cedcf4   3 hours ago     15.8MB
+alpine            latest    9c6f07244728   2 weeks ago     5.54MB
+hello-world       latest    feb5d9fea6a5   11 months ago   13.3kB
+PS D:\dock1> docker run deepakkc/my-first-image2
+Unable to find image 'deepakkc/my-first-image2:latest' locally
+latest: Pulling from deepakkc/my-first-image2
+Digest: sha256:98d5f7439263ecbe8088ae5bf3a2289c9b24ea4f00
+Status: Downloaded newer image for deepakkc/my-first-image2:latest
+Hello, World, I am learning to write a Dockerfile!
+PS D:\dock1> docker images
+REPOSITORY                 TAG       IMAGE ID       CREATED         SIZE
+deepakkc/my-first-image2   latest    54ffbbbdf9b1   2 hours ago     7.76MB
+my-first-image1            latest    d7a77ec9a86f   2 hours ago     15.8MB
+my-first-image             latest    4e9767cedcf4   3 hours ago     15.8MB
+alpine                     latest    9c6f07244728   2 weeks ago     5.54MB
+hello-world                latest    feb5d9fea6a5   11 months ago   13.3kB
 ```
 > Note: if you don't have an account, visit [Docker Hub](hhttps://hub.docker.com/) and create an account. 
 
