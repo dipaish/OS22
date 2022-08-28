@@ -309,7 +309,7 @@ hello-world                latest    feb5d9fea6a5   11 months ago   13.3kB
 >**Note:** If you want to learn more about Dockerfiles, check out [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/).
 
 ## Exercise
-1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database server to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
+1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
 2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
 3. Write a Dockerfile to create an image with CMD instruction (any). Use Alpine image as the base image.  
 4. Continue working on the Dockerfile created in Task 3. Specify a working directory (WORKDIR as /opt) and use RUN to write "This is my work directory " in a text file test.txt (`echo "This is my work Directory" >opt.txt`). Build Docker image as **workdir:v1** and run the image as `docker run -it wordkir:v1 ls`. Make sure that you find **test.txt**. 
