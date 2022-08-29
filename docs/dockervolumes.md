@@ -91,5 +91,11 @@ $ docker logs --follow app2
 $ CTRL + C
 ```
 # Docker & Visual Studio Code
+ - **Remote - Containers** extension in Visual Studio Code lets you use a Docker container as a full-featured development environment. 
+ - You can  open any folder inside (or mounted into) a container.
+ - You can easily switch between your containers and have full access to the tools, platform and file system.
 
+ ![Remote - Container Extension](assets/remote.png)
+ ![Docker in VSC](assets/dockervi.png)
+ 
 # Docker Volumes
