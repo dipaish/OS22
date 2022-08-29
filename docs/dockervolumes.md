@@ -99,3 +99,139 @@ $ CTRL + C
  ![Docker in VSC](assets/dockervi.png)
  
 # Docker Volumes
+
+- Volumes are special directories in a container. 
+- We can use *[Docker Volumes](https://docs.docker.com/storage/volumes/)* to persist data that are generated and used by Docker containers. 
+- Volumes are managed by Docker and it is preffered mechanism to persist data. 
+- The another mechanism to persist data is [Bind Mounts](https://docs.docker.com/storage/bind-mounts/).
+
+***To make things clear, lets go through a simple demonstration of a volume***
+
+- Run an interactive shell within an alpine container 
+```docker
+docker run -it alpine /bin/sh
+```
+- Lets create a new folder as mydata
+    ```bash
+        mkdir mydata
+    ```
+- Lets create a text file as hello.txt in 'mydata'
+```bash
+touch mydata/hello.txt
+```
+- Lets confirm the file is created. 
+```bash
+ls mydata
+```
+- Lets exit the container shell 
+```docker
+exit
+```
+#### The container has no exited. Let's start the container again.
+```docker
+docker start continerID
+```
+#### Let's access the shell and see what happens to the file we created earlier, the files is still there 
+```bash
+PS D:\github\OS22> docker exec -it 025 /bin/sh
+/ # ls
+bin     etc     lib     mnt     opt     root    sbin    sys     usr
+dev     home    media   mydata  proc    run     srv     tmp     var
+/ # ls mydata/
+hello.txt
+/ #
+```
+#### Now let's remove the container
+```docker
+docker rm 025 
+```
+Let’s inspect our container in order to get the location of the container’s layer. We can use the `inspect` command and then scroll into the output until the GraphDriver key.
+```docker
+docker container inspect containerid
+```
+Get the path of the file that is specified in *UpperDir* and access this file from the host by typing the command below (works in Linux based OS): 
+```docker 
+ls /var/lib/docker/overlay2/e79e95118 1b567537b0a7e13ad31744/diff/mydata
+```
+It seems the folder defined in the UpperDir above does not exist anymore.  Try running the ls command again and see the results.
+
+>Note: The data created in a container is not persisted. It’s removed with the container’s layer when the container is deleted.
+
+# Creating a Docker Volume
+- You can create Docker Volume in two different ways
+    - Within a `Dockerfile` 
+    ```
+    VOLUME /mydata
+    ```
+    - With the Docker run command with the `-v` flag
+    ```bash
+    $ docker run -d -v /mydata myapp
+    ```
+##### In both cases, `/mydata` (inside the container) will be a volume.
+
+***You can create and manage volumes that are outside the scope of any container***
+```docker
+docker volume create myvolume
+```
+### To list volumes
+```docker
+docker volume ls
+```
+### To inspect a volume 
+```docker
+docker volume inspect volumename
+```
+### To remove a volume 
+```docker
+docker volume rm volumename
+```
+### To remove (pruning) all unused volumes 
+```docker
+docker volume prune
+```
+### To start a container with a volume
+When you start a container with a volume that does not exist, the Docker will create the volume for you. 
+***Lets start alpine with a volume to which we will add persistent data.***
+
+- Create a volume or use the existing one. Lets create a new volume called alpinedata
+```docker
+docker volume create alpinedata
+```
+- Create a Docker container & attach the alpinedata volume
+```docker
+docker run -it -v alpinedata:/data alpine /bin/sh
+```
+- Lets get to the data directory in container and create some files and ensure with ls command that the files are created.
+```bash
+touch data/file1.txt data/file2.txt
+ls data
+```
+- Exit the container `exit`
+- Delete the container `docker rm continaerid`
+
+### Run a new container and attach the alpinedata volume to it. 
+```bash
+docker run -it -v alpinedata:/data alpine /bin/sh
+```
+#### [Read More on Volumes](https://docs.docker.com/storage/volumes/)
+
+#### Check the files in the data directory and verify that they still exist 
+```bash
+ls data
+```
+## Creating Docker Volume within a **Dockerfile**
+
+###### Content of the Dockerfile
+```bash
+FROM alpine:latest
+RUN mkdir /data
+WORKDIR /data
+RUN echo "Hello from Volume" > test
+VOLUME /data
+CMD cat test
+```
+- Build the image `docker build . -t   vv`
+- Run it `docker run vv`  
+- Get the shell access and create some more files to it.
+- Delted the container and run the image again. 
+- Check if your files still exist.
