@@ -312,7 +312,7 @@ Now that the container is running and mapped to a port on a host interface you c
 
 Point your web browser to the IP and port 8080 of your Docker host. The following example shows a web browser pointed to `localhost:8080`. You can also open webpage using Docker Desktop. 
 
-<img src="./assets/docker-desktop-open-www.png" title="docker-desktop"> 
+<img src="assets/docker-desktop-open-www.png" title="docker-desktop"> 
 
 
 
