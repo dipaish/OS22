@@ -86,11 +86,15 @@ volumes:
 ```
 
 3. Check the validity of the file 
-`docker-compose config`
+```
+docker-compose config
+```
 
 4. Run the docker-compose file in the detached mode
 
-`Docker-compose up -d`
+```
+Docker-compose up -d
+```
 
 5. Check your images & containers and you will find new images & containers 
 
