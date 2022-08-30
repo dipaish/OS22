@@ -233,5 +233,5 @@ CMD cat test
 - Build the image `docker build . -t   vv`
 - Run it `docker run vv`  
 - Get the shell access and create some more files to it.
-- Delted the container and run the image again. 
+- Delete the container and run the image again. 
 - Check if your files still exist.
