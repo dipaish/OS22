@@ -102,9 +102,33 @@ Docker-compose up -d
 Docker images
 Docker ps 
 ```
-Get to the link in the browser:http://localhost:8000/ and login with the root username and password. 
+Get to the link in the browser: [http://localhost:8000/](http://localhost:8000/) and login with the root username and password. 
+
+### Docker-compose Commom Commands
+
+- Starts existing containers for a service.
+`docker-compose start`
+
+- Stops running containers without removing them.
+`docker-compose stop`
+
+- Pauses running containers of a service.
+`docker-compose pause`
+
+- Unpauses paused containers of a service.¶
+`docker-compose unpause`
+
+- Lists containers.
+`docker-compose ps`
+
+- Builds, (re)creates, starts, and attaches to containers for a service.
+`docker-compose up`
+
+- Stops containers and removes containers, networks, volumes, and images created by up.
+`docker-compose down`
 
 ### Exercise 
-Follow the guidelines available at this link and get more familiar with Docker Compose. 
-- Get Started with Docker Compose
-https://docs.docker.com/compose/gettingstarted/ 
+1. Follow the guidelines available at this link and get more familiar with Docker Compose by completing the task. 
+  [Get Started with Docker Compose](https://docs.docker.com/compose/gettingstarted/) 
+
+2. Complete the task available at this link [Setting up Local WordPress Development using - Docker Compose](https://dipaish.github.io/docker/index.html) 
