@@ -153,7 +153,7 @@ docker container inspect yourcontainerid
 Get the path of the file that is specified in *UpperDir* and copy the path
  ![Check path for the upperDir](assets/upperD.png)
 
-#### To access the directory or file from the host, type the command below: (please remember to replace the path with your own path)
+#### To access the directory or file from the Windows machine, type the command below: (please remember to replace the path with your own path)
 ```powershell 
 PS D:\GitHubRepos\OS22> ls \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
 
