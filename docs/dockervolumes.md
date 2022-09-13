@@ -166,14 +166,21 @@ Mode                 LastWriteTime         Length Name
 
 [![Click to Watch Video](assets/www.png)](https://www.youtube.com/watch?v=-JKWxSPdwD4 "Click to Watch Video")
 
-#### Now let's remove the container
+#### Now let's remove the container & try to access the path
 ```docker
-docker rm 025 
+PS D:\GitHubRepos\OS22> docker stop  661
+661
+PS D:\GitHubRepos\OS22> 
+PS D:\GitHubRepos\OS22> docker rm 661
+661
+PS D:\GitHubRepos\OS22> ls \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
+Get-ChildItem: Cannot find path '\\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata' because it does not exist.
+PS D:\GitHubRepos\OS22> 
 
+```
+***It seems the folder defined in the UpperDir above does not exist anymore.  Try running the ls command again and see the results.***
 
-It seems the folder defined in the UpperDir above does not exist anymore.  Try running the ls command again and see the results.
-
->Note: The data created in a container is not persisted. It’s removed with the container’s layer when the container is deleted.
+>Note: The data created in a container is not persisted. It’s removed with the container’s layer when the container is deleted.To persis data, we will use volume.
 
 # Creating a Docker Volume
 - You can create Docker Volume in two different ways
