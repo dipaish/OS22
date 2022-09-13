@@ -141,18 +141,36 @@ dev     home    media   mydata  proc    run     srv     tmp     var
 hello.txt
 / #
 ```
-#### Now let's remove the container
-```docker
-docker rm 025 
+#### To access the file from the host machine in Windows 10/11 (Make sure that you have WSL integration checked as in the diagram below:)
+ ![Docker in VSC](assets/wsl.png)
+
 ```
 Let’s inspect our container in order to get the location of the container’s layer. We can use the `inspect` command and then scroll into the output until the GraphDriver key.
 ```docker
-docker container inspect containerid
+docker container inspect yourcontainerid
 ```
-Get the path of the file that is specified in *UpperDir* and access this file from the host by typing the command below (works in Linux based OS): 
-```docker 
-ls /var/lib/docker/overlay2/e79e95118 1b567537b0a7e13ad31744/diff/mydata
+Get the path of the file that is specified in *UpperDir* and copy the path
+ ![Check path for the upperDir](assets/upperD.png)
+
+#### To access the directory or file from the host, type the command below: (please remember to replace the path with your own path)
+```powershell 
+PS D:\GitHubRepos\OS22> ls \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
+
+    Directory: \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-----          13/09/2022     8.59              0 hello.txt
 ```
+#### You can aslo access it from Windows file explorer. 
+
+[![Click to Watch Video](assets/www.png)](https://www.youtube.com/watch?v=-JKWxSPdwD4 "Click to Watch Video")
+
+#### Now let's remove the container
+```docker
+docker rm 025 
+
+
 It seems the folder defined in the UpperDir above does not exist anymore.  Try running the ls command again and see the results.
 
 >Note: The data created in a container is not persisted. It’s removed with the container’s layer when the container is deleted.
