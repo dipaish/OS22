@@ -133,7 +133,7 @@ docker start continerID
 ```
 #### Let's access the shell and see what happens to the file we created earlier, the file is still there 
 ```bash
-PS D:\github\OS22> docker exec -it 025 /bin/sh
+PS D:\github\OS22> docker exec -it 661 /bin/sh
 / # ls
 bin     etc     lib     mnt     opt     root    sbin    sys     usr
 dev     home    media   mydata  proc    run     srv     tmp     var
@@ -144,8 +144,9 @@ hello.txt
 #### To access the file from the host machine in Windows 10/11 (Make sure that you have WSL integration checked as in the diagram below:)
  ![Docker in VSC](assets/wsl.png)
 
-```
+
 Let’s inspect our container in order to get the location of the container’s layer. We can use the `inspect` command and then scroll into the output until the GraphDriver key.
+
 ```docker
 docker container inspect yourcontainerid
 ```
