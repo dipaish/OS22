@@ -159,3 +159,90 @@ In the above command:
 - docker stop continaername/id
 - docker remove continaername/id
 ```
+
+## Docker Commands Cheat Sheet
+
+Here is a list of commonly used Docker commands for managing containers:
+
+- `docker start`: Start a stopped container.
+  - Example: `docker start mycontainer`
+
+- `docker stop`: Stop a running container.
+  - Example: `docker stop mycontainer`
+
+- `docker restart`: Stop and then start a container.
+  - Example: `docker restart mycontainer`
+
+- `docker rm`: Remove a container.
+  - Example: `docker rm mycontainer`
+
+- `docker ps`: List running containers.
+  - Example: `docker ps`
+
+- `docker ps -a`: List all containers (including stopped containers).
+  - Example: `docker ps -a`
+
+- `docker logs`: Display the logs of a container.
+  - Example: `docker logs mycontainer`
+
+- `docker exec`: Execute a command inside a running container.
+  - Example: `docker exec -it mycontainer sh`
+
+- `docker inspect`: Display detailed information about a container.
+  - Example: `docker inspect mycontainer`
+
+- `docker stats`: Display real-time resource usage statistics of running containers.
+  - Example: `docker stats`
+
+- `docker pause`: Pause the execution of processes in a running container.
+  - Example: `docker pause mycontainer`
+
+- `docker unpause`: Resume the execution of processes in a paused container.
+  - Example: `docker unpause mycontainer`
+
+- `docker top`: Display the running processes inside a container.
+  - Example: `docker top mycontainer`
+
+- `docker rename`: Rename a container.
+  - Example: `docker rename mycontainer newname`
+
+- `docker attach`: Attach to a running container to view its output or interact with its processes.
+  - Example: `docker attach mycontainer`
+
+  ## Docker Commands for Images
+
+1. `docker images`: List all locally available Docker images.
+   - Example: `docker images`
+
+2. `docker pull`: Pull an image from a container registry.
+   - Example: `docker pull nginx`
+
+3. `docker build`: Build a Docker image from a Dockerfile.
+   - Example: `docker build -t myapp:latest .`
+
+4. `docker push`: Push an image to a container registry.
+   - Example: `docker push myusername/myapp:latest`
+
+5. `docker rmi`: Remove one or more Docker images from the local machine.
+   - Example: `docker rmi myapp:latest`
+
+6. `docker tag`: Tag an existing image to give it a new name or version.
+   - Example: `docker tag myapp:latest myapp:v1.0`
+
+7. `docker history`: Show the history of an image, including its layers and sizes.
+   - Example: `docker history myapp:latest`
+
+8. `docker inspect`: Display detailed information about an image.
+   - Example: `docker inspect myapp:latest`
+
+9. `docker search`: Search for Docker images in a public container registry like Docker Hub.
+   - Example: `docker search ubuntu`
+
+10. `docker save`: Save one or more images to a tar archive.
+    - Example: `docker save -o my_images.tar myapp:latest myotherapp:latest`
+
+11. `docker load`: Load an image or images from a tar archive.
+    - Example: `docker load -i my_images.tar`
+
+12. `docker prune`: Remove all unused images, networks, and containers (careful with this command).
+    - Example: `docker system prune`
