@@ -1,4 +1,4 @@
-# 1. Getting Started with Docker
+# Getting Started with Docker
 This tutorial aims to guide you through the process of setting up Docker Desktop and understanding the fundamentals of Docker. By the end of this tutorial, you will be able to run, stop, and remove Docker containers. Let's get started! 
 
 ## Setting up your Computer
@@ -12,7 +12,7 @@ The *getting started* guide on Docker has detailed instructions for setting up D
 *All commands work in either bash or Powershell on Windows*
 
 ## Check your Docker Installation
-#### Once you are done installing Docker, test your Docker installation by running the following:
+Once you are done installing Docker, test your Docker installation by running the following:
 
 ```
 $ docker run hello-world
@@ -154,7 +154,7 @@ In the above command:
 * `-d` will run the container in detached mode, meaning it will run in the background.
 * `mysql:tag`: This part specifies the Docker image to use for the container. In this example, it uses the official MySQL image with a specific tag. The tag represents a specific version or variant of the MySQL image (e.g., latest, 8.0, 5.7, etc.).
 
-### Remove all containers since you don't need them any more. Remember to stop before deleting a container 
+***Remove all containers since you don't need them any more. Remember to stop before deleting a container*** 
 ```bash
 - docker stop continaername/id
 - docker remove continaername/id
