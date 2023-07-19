@@ -1,5 +1,5 @@
 # 1. Getting Started with Docker
-This tutorial will hel you to set up Docker-Desktop and learn very basics of docker such as running a container, stopping it and removing it. 
+This tutorial aims to guide you through the process of setting up Docker Desktop and understanding the fundamentals of Docker. By the end of this tutorial, you will be able to run, stop, and remove Docker containers. Let's get started! 
 
 ## Setting up your Computer
 
@@ -28,12 +28,12 @@ This message shows that your installation appears to be working correctly.
 ...
 ```
 # The Docker Dashboard
-It provides the quick view of the containers running on your mahcine. You have quick access to container logs. You can get a shell inside the container. You can easily manage conatainers such as stop, start or remove. 
+It provides a quick view of the containers running on your machine. You have quick access to container logs, and you can get a shell inside the container. You can easily manage containers, such as stopping, starting, or removing them. 
 ![Docker Dashboard](assets/docker.png "Docker Dashboard").
 
 # Running your first Container
 
-In this section, you are going to run an [Alpine Linux](http://www.alpinelinux.org/) container (a lightweight linux distribution) on your system and get a taste of the `docker run` command.
+In this section, you will run an [Alpine Linux](http://www.alpinelinux.org/) container (a lightweight Linux distribution) on your system and get familiar with the `docker run` command.
 
 To get started, let's run the following in our terminal:
 ```
@@ -131,9 +131,9 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - *Docker Store* - A [registry](https://store.docker.com/) of Docker images, where you can find trusted and enterprise ready containers, plugins, and Docker editions. You'll be using this later in this tutorial.
 
 # Exercise 
-- Your task is to run a static website in a container
-- You will use an existing image [static-site](https://hub.docker.com/r/dockersamples/static-site)
-- You are required download and run the image in detached mode. (docker run )
+- Your task is to run a MySQL database service in a container.
+- You need to find an appropriate MySQL image from the [Dockerhub](https://hub.docker.com/)
+- You are required run the image in detached mode. (docker run )
 >**Note:**  The `-d` flag enables **detached mode**, which detaches the running container from the terminal/shell and returns your prompt after the container starts. 
 - Run `docker ps` to view the running containers.
 - Stop the container that you have just launched. In order to do this, you need the container ID.
@@ -144,31 +144,16 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - Launch a container in detached mode 
 
 ```
-$ docker run --name static-site -e AUTHOR="Your Name" -d -P dockersamples/static-site
+$ docker run --name cname -e MYSQL_ROOT_PASSWORD=yourpassword -d mysql:tag
 
 ```
 In the above command:
 
-*  `-d` will create a container with the process detached from our terminal
-* `-P` will publish all the exposed container ports to random ports on the Docker host
-* `-e` is how you pass environment variables to the container
-* `--name` allows you to specify a container name
-* `AUTHOR` is the environment variable name and `Your Name` is the value that you can pass
+* `--name cname` : This sets the name of the container to "cname". You can use this name to easily refer to and manage the container later.
+* `-e MYSQL_ROOT_PASSWORD=yourpassword` : This option sets an environment variable for the MySQL container. It sets the MYSQL_ROOT_PASSWORD variable to "yourpassword," which will be used as the root password for the MySQL database.
+* `-d` will run the container in detached mode, meaning it will run in the background.
+* `mysql:tag`: This part specifies the Docker image to use for the container. In this example, it uses the official MySQL image with a specific tag. The tag represents a specific version or variant of the MySQL image (e.g., latest, 8.0, 5.7, etc.).
 
-#### Now you can see the ports by running the `docker port` command.
-
-```bash
-$ docker port static-site
-443/tcp -> 0.0.0.0:32772
-80/tcp -> 0.0.0.0:32773
-```
-##### Vist your static site at http://localhost:32773
-
-#### Lets run a second webserver by using custom host port mapping to the container's webserver.
-
-```bash
-$ docker run --name static-site-2 -e AUTHOR="Your Name" -d -p 8888:80 dockersamples/static-site
-```
 ### Remove all containers since you don't need them any more. Remember to stop before deleting a container 
 ```bash
 - docker stop continaername/id
