@@ -1,9 +1,12 @@
-# 2. Docker Images
+##  Building Docker Images with Dockerfile
 
-Previous, we utilized **images** from the **registry**  and asked the Docker client to run a container **based** on that image. 
+Previously, we utilized **images** from the **registry (Dockerhub)** and instructed the Docker client to run a container based on that **image**. In this section, we will learn to create custom Docker images using Dockerfile. 
 
-To see the list of images that are available locally on your system, run the `docker images` command.
+***Docker images are like blueprints that contain the application code, runtime environment, libraries, dependencies, and other configuration required to run an application. They are essential for containerization. DOcker images are lightweight, portable, and allow for consistent deployments across different environments.***
 
+***To build your own image***, you will need to write a file called **Dockerfile.** A **Dockerfile** is a simple text file that contains a set of instructions for building a Docker image. It includes step by step instructions on how an image should be built. It defines the **base image** to start from, the application code to include,the dependencies to install and the configuration settings required for the image.  
+
+**Let's begin by listing the local images available on the device.**
 ```bash
 $ docker images
 ```
@@ -69,22 +72,45 @@ Another key concept is the idea of _official images_ and _user images_. (Both of
 ### Create your first image
 Now that you have a better understanding of images, it's time to create your own.
 
-#### Docker File
-- A Dockerfile is simply a text file that contains the build instructions for an image. It automates the image creation process.
+**Step 1: Set up your Project Directory**
+You will state by Creating a new directory for your Docker project and navigate to it in your terminal or command prompt.
+
+```bash
+$ mkdir my_docker_project
+cd my_docker_project
+```
+**Step 2: Create your application code**
+You can create a simple application in your favorite programming language. For this illustration, we'll use Python to build a basic web application.Lets create a file called app.py with the following content.
+
+```bash
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World! This is a simple python app running in a docker container'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)
+```
+
+**Step 3:Create the Docker File**
+Now, create a Dockerfile in the same project directory.
+
+A **Dockerfile** is simply a text file that contains the build instructions for an image. It automates the image creation process.
   - It specifies a base image.
   - It includes instructions to install required tools for your app. 
-  - It includes intructins to install libraries, dependencies and pacakages. 
+  - It includes instructions to install libraries, dependencies and packages. 
   - It then builds your app. 
-- It is a step by step set of standard instructions such as `FROM`, `COPY`, `RUN`, `ENV`, `EXPOSE`, `CMD` 
-- The commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
-
-- The name of the file is  `Dockerfile` without any extension and the letter **D** is capital. 
-
-- Write only the minimum set of steps that is needed for your app. Avoid unnecessary components. 
+  - It is a step by step set of standard instructions such as `FROM`, `COPY`, `RUN`, `ENV`, `EXPOSE`, `CMD` 
+  - The commands you write in a Dockerfile are almost identical to their equivalent Linux commands.
+  - The ***name of the file is***  `Dockerfile` without any extension and the letter **D** is capital. 
+  - Write only the minimum set of steps that is needed for your app. Avoid unnecessary components. 
 
 #### Dockerfile basic commands 
 ***FROM***
- - The **FROM** command must be the first line in the Dockerfile. Since images are made up of layers, you can utilize one of those images as the foundation for your own. The **FROM** command defines your **base layer**. 
+ - The **FROM** command must be the first line in the Dockerfile. Since images are made up of layers, you can utilize one of the official images as the foundation for your own. The **FROM** command defines your **base layer**. 
 ```  
 FROM alpine:3.14 
 ``` 
@@ -93,7 +119,7 @@ FROM alpine:3.14
 - It accepts the image's name as parameters. You can optionally include the image version and the maintainer's Docker Hub username in the following format:`username/imagename:version`.
 
 ***WORKDIR***
-- It defines the working directory of a Docker Conainter.
+- It defines the working directory of a Docker Container.
 - Any RUN, CMD, COPY or ENTRYPOINT COMMAND will be executed in the specified working directory.
 
 ##### Lets specify our working directory in the Docker file. 
@@ -107,7 +133,7 @@ WORKDIR /usr/src/app/
 
  COPY `<src>` `<destination>`
 
- To understant the concept, let's write a simple script called **hello.sh** in your device. We will copy this file to the container and ask to run at the time of building our image.
+ To understand the concept, let's write a simple script called **hello.sh** in your device. We will copy this file to the container and ask to run at the time of building our image.
 
  ```
  #!/bin/sh
@@ -307,7 +333,6 @@ hello-world                latest    feb5d9fea6a5   11 months ago   13.3kB
 > ***Now that you are done with this container, stop and remove it since you won't be using it again.***
 
 >**Note:** If you want to learn more about Dockerfiles, check out [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/).
-
 ## Exercise
 1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
 2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
