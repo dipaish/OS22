@@ -1,0 +1,16 @@
+## Topnav single links
+## if you want to list an external url, use external_url instead of url. the theme will apply a different link base.
+topnav:
+- title: Topnav
+  items:
+    - title: HTML Basics
+      url: /index
+    - title: GitHub Pages
+      url: /gpages
+    - title: CSS
+      url: /css
+    - title: Bootstrap
+      url: /bootstrap
+   
+
+
