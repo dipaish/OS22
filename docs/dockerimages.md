@@ -231,11 +231,7 @@ nano new.txt
 
 ***Lets check our image and note the size of the image (my-first-image). It is 15.8MB*** 
 ```
-PS D:\dock1> docker images
-REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
-my-first-image   latest    2c03d638427a   46 seconds ago   15.8MB
-alpine           latest    9c6f07244728   2 weeks ago      5.54MB
-hello-world      latest    feb5d9fea6a5   11 months ago    13.3kB
+ docker images
 ```
 
 ***Lets remove the nano from our Dockerfile***
@@ -257,7 +253,7 @@ chmod +x hello.sh
 # it runs the script at the start-up
 CMD ./hello.sh
 ```
-*** Now build the image again  as my-first-image2 without nano. Since vi is already available, we don't necessarily need the nano text editor.***
+***Now build the image again  as my-first-image2 without nano. Since vi is already available, we don't necessarily need the nano text editor.***
 ```
  docker build . -t my-first-image2
  ```
@@ -265,11 +261,7 @@ CMD ./hello.sh
 ***Check the size of image***
 
 ```
-PS D:\dock1> docker images
-REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
-my-first-image2   latest    54ffbbbdf9b1   28 seconds ago   7.76MB
-my-first-image1   latest    d7a77ec9a86f   5 minutes ago    15.8MB
-my-first-image    latest    4e9767cedcf4   16 minutes ago   15.8MB
+docker images
 ```
 When you remove the instruction to install `nano` in the Dockerfile, the size of the resulting Docker image decreases because the image no longer includes the `nano` text editor.
 
@@ -282,7 +274,7 @@ Here's why the size reduction occurs:
 By minimizing the number of unnecessary layers and reducing the size of the Docker image, you can create more efficient and lightweight images. This practice is particularly important when building production-ready containers to optimize resource usage and improve deployment times.
 
 ## Push your first image
-Now that we have created and tested our image, we can push it to [Docker Hub](hhttps://hub.docker.com/).
+Now that we have created and tested our image, we can push it to [Docker Hub](https://hub.docker.com/).
 
 ***First you have to login to your Docker Hub account***
 ```bash
@@ -312,10 +304,10 @@ docker run deepakkc/my-first-image2
 > Note: if you don't have an account, visit [Docker Hub](hhttps://hub.docker.com/) and create an account. 
 
 
-
 > ***Now that you are done with this container, stop and remove it since you won't be using it again.***
 
 >**Note:** If you want to learn more about Dockerfiles, check out [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/).
+
 ## Exercise
 1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
 2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
