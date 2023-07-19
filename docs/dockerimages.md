@@ -126,7 +126,7 @@ Example
 RUN apk update
 RUN apk add nano 
 ``` 
-> The first line ```RUN apk update```  will first update the package index of the package manager (apk) within the container and fetches the latest package information from the Alpine package repositories. The second line ```RUN apk add nano``` will install the nano text editor inside the container. 
+> The first line ```RUN apk update```  will update the package index of the package manager (apk) within the container and fetches the latest package information from the Alpine package repositories. The second line ```RUN apk add nano``` will install the nano text editor inside the container. 
 
 ***Expose***
 - It tells Docker that the container listens on the specified network ports at runtime.
@@ -151,7 +151,8 @@ CMD ["python", "app.py"]
 These basic Dockerfile command will allow you to create a simple Docker image containing  your application and its dependencies. As you progress with Docker, you'll encounter more advanced commands and options that can be used to fine-tune and optimize your Docker images for different use cases.
 
 ## Create your first image
-Now that you have a better understanding of images, it's time to create your own.
+
+Now that you have a better understanding of images and Dockerfile, it's time to create our own. Lets build a simple image using `Alpine linux` as the `base image` that includes the `nano` text editor, `copies` the script named `hello.sh` into the image and sets it to `execute` when a container is started from the image. 
 
 **Step 1: Set up your Project Directory**
 You will state by Creating a new directory for your Docker project and navigate to it in your terminal or command prompt.
@@ -161,84 +162,74 @@ $ mkdir my_docker_project
 cd my_docker_project
 ```
 **Step 2: Create your application code**
-You can create a simple application in your favorite programming language. For this illustration, we'll use Python to build a basic web application.Lets create a file called app.py with the following content.
+You can create a simple application in your favorite programming language. For this illustration, we'll **write a simple bash script**.Lets create a file called hell.sh with the following content.
 
 ```bash
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-    return 'Hello, World! This is a simple python app running in a docker container'
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+#!/bin/sh
+ echo "Hello, World, I am learning to write a Dockerfile!"
 ```
 
 **Step 3:Create the Docker File**
-Now, create a Dockerfile in the same project directory.
-
-
-
-### Dockerfile basic commands 
-
-
-```  
-FROM alpine:3.14 
-WORKDIR /usr/src/app/  
-COPY hello.sh .
-RUN apk update
-RUN apk add nano 
-RUN chmod +x hello.sh 
-``` 
-
-
-- ***Lets run our simple script at the start-up***
-
-```  
-#Start from the alpine image 
-FROM alpine:3.14 
-
-#it defines the working directory
-WORKDIR /usr/src/app/  
-
-#copies the script file to the container
-COPY hello.sh .
-
-#Installs updates
-RUN apk update
-
-#Installs nano text editor
-RUN apk add nano 
-
-#it adds executable permission to our script hello.sh
-RUN chmod +x hello.sh 
-
-#it runs the script at the start-up
-CMD ./hello.sh
-``` 
-***Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)***
-
-### Build your first image
-Now that our docker file is ready, we will use ***[docker build](https://docs.docker.com/engine/reference/commandline/build/)*** command to build our image. 
-- **docker build** command will look for Dockerfile and build as per instructions in the Dockerfile. 
-  - Let's create a directory and save the Dockerfile and hello.sh in the directory.
-   - Get into the directory with the CD command and exectue the following command. 
+Now, create a Dockerfile in the same project directory. The name of the file is Dockerfile without any extension. The content of the Dockerfile is as below:
 
 > ***Note: Please use IDE such as Visual Studio code to create Dockerfile. If you use notepad, it adds .txt extension to the file and the build won't work.***
 
- The following command looks for the Dockerfile. The (.) specifies where to build and -t gives it a name.
+```  
+# Start from the alpine image. It sets  the base image for the Docker image to the 
+# Alpine Linux version 3.14. It means the new image will be based on the Alpine Linux distribution
+FROM alpine:3.14 
+
+# It defines the working directory inside the container to /usr/src/app/. 
+# It is the directory where subsequent commands will be executed.
+WORKDIR /usr/src/app/  
+
+# It copies the script file hello.sh from the build context (the directory containing the Dockerfile) 
+# into the /usr/src/app/ directory inside the container. 
+# The dot (.) represents the current working directory inside the container, /usr/src/app/
+COPY hello.sh .
+
+#  It updates the package index of the package manager (apk) within the container.
+RUN apk update
+
+# It installs the nano text editor inside the container.
+RUN apk add nano 
+
+# It adds executable permission to the script hello.sh inside the container. 
+# It allows the script to be executed as a command.
+RUN chmod +x hello.sh 
+
+# It sets the default command to be executed when a container starts from the built image. In this case, it runs the hello.sh script.
+
+CMD ./hello.sh
+``` 
+
+**Step 4:Build the Docker Image**
+### Build your first image
+Now that our docker file is ready, we will use ***[docker build](https://docs.docker.com/engine/reference/commandline/build/)*** command to build our image. 
+
+The following **docker build** command will look for the `Dockerfile` and build as per instructions in the Dockerfile. The (.) specifies where to build and -t  flag tags the image with the name "my_first_image".
+
+```bash 
+docker build -t my_first_image .
+``` 
+
+**Step 5:Run the Docker Container** 
+
+Once the image is successfully built, you can run a container using the following command: 
+```bash
+docker run my-first-image
+``` 
+**Step 6: Access the interactive terminal and use nano to create a text file called new.txt**
+
+```bash
+docker run -it my-first-image /bin/sh
+nano new.txt
 ```
-PS D:\dock1> docker build . -t my-first-image
-[+] Building 8.8s (11/11) FINISHED
- => [internal] load build definition from Dockerfile                                                                             0.1s
- => => transferring dockerfile: 438B                                                                                             0.0s
- => [internal] load .dockerignore                                                                                                0.0s
- => => transferring context: 2B                                                                                                  0.0s
- => [internal] load metadata for docker.io/library/alpine:3.14  
-```
-###### Lets check our image and note the size of the image (my-first-image). It is 15.8MB 
+***Congratulations! You have successfully created your first Docker image and deployed it as a container.***
+
+***Read More at [Docker File Reference Page](https://docs.docker.com/engine/reference/builder/)***
+
+***Lets check our image and note the size of the image (my-first-image). It is 15.8MB*** 
 ```
 PS D:\dock1> docker images
 REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
@@ -246,21 +237,8 @@ my-first-image   latest    2c03d638427a   46 seconds ago   15.8MB
 alpine           latest    9c6f07244728   2 weeks ago      5.54MB
 hello-world      latest    feb5d9fea6a5   11 months ago    13.3kB
 ```
-### Run your first image
-```
-PS D:\dock1> docker run my-first-image       
-Hello, World, I am learning to write a Dockerfile!
-```
 
-***Lets get the interactive terminal from our image and use nano to create a file called new.txt***
- ```
- PS D:\dock1> docker run -it my-first-image /bin/sh
-/usr/src/app # ls
-hello.sh
-/usr/src/app # nano new.txt/usr/src/app # ls
-hello.sh  new.txt
-```
-### Lets remove the nano from our Dockerfile
+***Lets remove the nano from our Dockerfile***
 
 ```
 # Start from the alpine image 
@@ -279,18 +257,12 @@ chmod +x hello.sh
 # it runs the script at the start-up
 CMD ./hello.sh
 ```
-##### Now build the image again  as my-first-image2 wihtout nano. Since vi is already available, we don't necessarly need the nano text editor.
+*** Now build the image again  as my-first-image2 without nano. Since vi is already available, we don't necessarily need the nano text editor.***
 ```
-PS D:\dock1> docker build . -t my-first-image2
-[+] Building 3.4s (9/9) FINISHED
- => [internal] load build definition from Dockerfile                                                                             0.0s
- => => transferring dockerfile: 419B                                                                                             0.0s 
- => [internal] load .dockerignore                                                                                                0.0s 
- => => transferring context: 2B                                                                                                  0.0s 
- => [internal] load metadata for docker.io/library/alpine:3.14
+ docker build . -t my-first-image2
  ```
 
-#### Check the size of image
+***Check the size of image***
 
 ```
 PS D:\dock1> docker images
@@ -299,8 +271,18 @@ my-first-image2   latest    54ffbbbdf9b1   28 seconds ago   7.76MB
 my-first-image1   latest    d7a77ec9a86f   5 minutes ago    15.8MB
 my-first-image    latest    4e9767cedcf4   16 minutes ago   15.8MB
 ```
-### Push your first image
-Now that you've created and tested your image, you can push it to [Docker Hub](hhttps://hub.docker.com/).
+When you remove the instruction to install `nano` in the Dockerfile, the size of the resulting Docker image decreases because the image no longer includes the `nano` text editor.
+
+Here's why the size reduction occurs:
+
+1. **Layering in Docker**: Each instruction in a Dockerfile creates a new layer in the Docker image. Layers are stackable, and each layer represents a change or modification to the image. When you install `nano` using the `RUN apk add nano` instruction, it adds a layer to the image containing the installed package.
+
+2. **Image Size**: Docker images are composed of multiple layers. Each layer contributes to the overall size of the image. When you remove the instruction to install `nano`, that layer is no longer present in the image, resulting in a smaller image size.
+
+By minimizing the number of unnecessary layers and reducing the size of the Docker image, you can create more efficient and lightweight images. This practice is particularly important when building production-ready containers to optimize resource usage and improve deployment times.
+
+## Push your first image
+Now that we have created and tested our image, we can push it to [Docker Hub](hhttps://hub.docker.com/).
 
 ***First you have to login to your Docker Hub account***
 ```bash
@@ -308,7 +290,7 @@ docker login
 ```
 Enter `YOUR_USERNAME` and `password` when prompted. 
 ```bash
-PS D:\dock1> docker login
+ docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
 Username: deepakkc
 Password: 
@@ -317,40 +299,15 @@ Login Succeeded
 Now all you have to do is:
 
 ```bash
-PS D:\dock1> docker tag  my-first-image2 deepakkc/my-first-image2
-PS D:\dock1> docker push deepakkc/my-first-image2
-Using default tag: latest
-The push refers to repository [docker.io/deepakkc/my-first-image2]
-e6244dc07df3: Pushed
-5d6c8546b9b6: Pushed
-596c0c0d55cf: Pushed
+docker tag  my-first-image2 deepakkc/my-first-image2
+docker push deepakkc/my-first-image2
+
 ```
 **Now yow you may delete your image and run it again. This time it will pull image from Docker Hub.**
 
 ```
-PS D:\dock1> docker rmi deepakkc/my-first-image2 -f
-Untagged: deepakkc/my-first-image2:latest
-Untagged: deepakkc/my-first-image2@sha256:98d5f7439d211156871e8088ae5bf3a2289c9bf00
-PS D:\dock1> docker images
-REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
-<none>            <none>    54ffbbbdf9b1   2 hours ago     7.76MB
-my-first-image1   latest    d7a77ec9a86f   2 hours ago     15.8MB
-my-first-image    latest    4e9767cedcf4   3 hours ago     15.8MB
-alpine            latest    9c6f07244728   2 weeks ago     5.54MB
-hello-world       latest    feb5d9fea6a5   11 months ago   13.3kB
-PS D:\dock1> docker run deepakkc/my-first-image2
-Unable to find image 'deepakkc/my-first-image2:latest' locally
-latest: Pulling from deepakkc/my-first-image2
-Digest: sha256:98d5f7439263ecbe8088ae5bf3a2289c9b24ea4f00
-Status: Downloaded newer image for deepakkc/my-first-image2:latest
-Hello, World, I am learning to write a Dockerfile!
-PS D:\dock1> docker images
-REPOSITORY                 TAG       IMAGE ID       CREATED         SIZE
-deepakkc/my-first-image2   latest    54ffbbbdf9b1   2 hours ago     7.76MB
-my-first-image1            latest    d7a77ec9a86f   2 hours ago     15.8MB
-my-first-image             latest    4e9767cedcf4   3 hours ago     15.8MB
-alpine                     latest    9c6f07244728   2 weeks ago     5.54MB
-hello-world                latest    feb5d9fea6a5   11 months ago   13.3kB
+docker rmi deepakkc/my-first-image2 -f
+docker run deepakkc/my-first-image2
 ```
 > Note: if you don't have an account, visit [Docker Hub](hhttps://hub.docker.com/) and create an account. 
 
@@ -365,20 +322,8 @@ hello-world                latest    feb5d9fea6a5   11 months ago   13.3kB
 3. Write a Dockerfile to create an image with CMD instruction (any). Use Alpine image as the base image.  
 4. Continue working on the Dockerfile created in Task 3. Specify a working directory (WORKDIR as /opt) and use RUN to write "This is my work directory " in a text file test.txt (`echo "This is my work Directory" >test.txt`). Build Docker image as **workdir:v1** and run the image as `docker run -it wordkir:v1 ls`. Make sure that you find **test.txt**. 
 5. Write a Docker file to build a Docker image that runs a simple Java app in a Docker container. 
-6. Cleanup: You probably don't need any of these containers, therfore you may delete all of them.
-
-***Share your Dockerfile(s) in Moodle discussion thread.***
+6. Cleanup: You probably don't need any of these containers, therefore you may delete all of them with the following command
 
 ```
 docker rm -f $(docker ps -aq)
 ```
-
-
-
-
-To understand the concept, let's write a simple script called **hello.sh** in your device. We will copy this file to the container and ask to run at the time of building our image.
-
- ```
- #!/bin/sh
- echo "Hello, World, I am learning to write a Dockerfile!"
- ```
