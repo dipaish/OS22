@@ -3,14 +3,16 @@
 topnav:
 - title: Topnav
   items:
-    - title: HTML Basics
+    - title: Docker Basics
       url: /index
-    - title: GitHub Pages
-      url: /gpages
-    - title: CSS
-      url: /css
-    - title: Bootstrap
-      url: /bootstrap
+    - title: Docker Images
+      url: /dockerimages
+    - title: Docker Volumes
+      url: /dockervolumes
+    - title: Docker Compose
+      url: /dockercompose
+    - title: Docker Network
+      url: /dockernetwork
    
 
 
