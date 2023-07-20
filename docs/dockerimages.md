@@ -3,7 +3,7 @@
 Previously, we utilized **images** from the **registry (Dockerhub)** and instructed the Docker client to run a container based on that **image**. In this section, we will learn to create custom Docker images using Dockerfile. 
 
 ### What is an image?
-***Docker images*** are like blueprints that contain the application code, runtime environment, libraries, dependencies, and other configuration required to run an application. They are essential for containerization. DOcker images are lightweight, portable, and allow for consistent deployments across different environments.
+***Docker images*** are like blueprints that contain the application code, runtime environment, libraries, dependencies, and other configuration required to run an application. They are essential for containerization. Docker images are lightweight, portable, and allow for consistent deployments across different environments.
 
  **Let's begin by listing the local images available on the device and understand important concepts about images.**
 ```bash
