@@ -331,6 +331,44 @@ By following these steps, you can keep your Docker image up-to-date with the lat
 
 >**Note:** If you want to learn more about Dockerfiles, check out [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/).
 
+## Docker Commands for Images
+
+1. `docker images`: List all locally available Docker images.
+   - Example: `docker images`
+
+2. `docker pull`: Pull an image from a container registry.
+   - Example: `docker pull nginx`
+
+3. `docker build`: Build a Docker image from a Dockerfile.
+   - Example: `docker build -t myapp:latest .`
+
+4. `docker push`: Push an image to a container registry.
+   - Example: `docker push myusername/myapp:latest`
+
+5. `docker rmi`: Remove one or more Docker images from the local machine.
+   - Example: `docker rmi myapp:latest`
+
+6. `docker tag`: Tag an existing image to give it a new name or version.
+   - Example: `docker tag myapp:latest myapp:v1.0`
+
+7. `docker history`: Show the history of an image, including its layers and sizes.
+   - Example: `docker history myapp:latest`
+
+8. `docker inspect`: Display detailed information about an image.
+   - Example: `docker inspect myapp:latest`
+
+9. `docker search`: Search for Docker images in a public container registry like Docker Hub.
+   - Example: `docker search ubuntu`
+
+10. `docker save`: Save one or more images to a tar archive.
+    - Example: `docker save -o my_images.tar myapp:latest myotherapp:latest`
+
+11. `docker load`: Load an image or images from a tar archive.
+    - Example: `docker load -i my_images.tar`
+
+12. `docker prune`: Remove all unused images, networks, and containers (careful with this command).
+    - Example: `docker system prune`
+    
 ## Exercise
 1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
 2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
@@ -342,3 +380,4 @@ By following these steps, you can keep your Docker image up-to-date with the lat
 ```
 docker rm -f $(docker ps -aq)
 ```
+
