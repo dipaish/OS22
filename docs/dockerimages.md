@@ -303,6 +303,29 @@ docker run deepakkc/my-first-image2
 ```
 > Note: if you don't have an account, visit [Docker Hub](hhttps://hub.docker.com/) and create an account. 
 
+### Push a new version of a Docker Image
+
+When you update your application, fix bugs, implement security updates, or make configuration changes, you may need to push a new version of the Docker image. This ensures that your containers are running with the latest changes and improvements in your application.
+
+#### Guidelines to Push a New Version:
+
+1. **Update the Application**: Make necessary changes and improvements to your application code.
+
+2. **Fix Bugs**: Address and resolve any known bugs or issues in your application.
+
+3. **Implement Security Updates**: Apply security patches and updates to protect against vulnerabilities.
+
+4. **Configure Changes**: Make adjustments to configurations or environment variables as needed.
+
+#### How to Push the New Image Version:
+
+1. **Build the Image**: Use the `docker build` command to build the updated Docker image.
+
+2. **Tag the Image**: Tag the new image version using `docker tag` with a relevant version number or tag.
+
+3. **Push to Registry**: Use `docker push` to upload the new image version to your container registry.
+
+By following these steps, you can keep your Docker image up-to-date with the latest changes and improvements in your application, ensuring that your containers run with the most recent version of the code and configurations.
 
 > ***Now that you are done with this container, stop and remove it since you won't be using it again.***
 
