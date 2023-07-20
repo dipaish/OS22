@@ -111,7 +111,7 @@ Example:
  ```  
   COPY hello.sh . 
  ``` 
-> The above line copies the file hello.sh from the current working directory on the host machine into the root directory of the container being built.
+> The above line copies the file hello.sh from the current working directory on the host machine into  the current working directory inside the container, in this case: /usr/src/app/
 
 ***RUN***
 - It allows you to install your applications and packages you need for your app. 
