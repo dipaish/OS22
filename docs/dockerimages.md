@@ -320,11 +320,24 @@ When you update your application, fix bugs, implement security updates, or make 
 #### How to Push the New Image Version:
 
 1. **Build the Image**: Use the `docker build` command to build the updated Docker image.
+```
+docker build -t my_first_image:v1.1 .
+```
+2. **Tag the Image with a New Version**: Tag the new image version using `docker tag` with a relevant version number or tag.
 
-2. **Tag the Image**: Tag the new image version using `docker tag` with a relevant version number or tag.
+```
+docker tag old_image_name:old_version new_image_name:new_version
+```
+Replace old_image_name and old_version with the current image name and version, and set new_image_name and new_version to the desired new name and version for the image.
 
 3. **Push to Registry**: Use `docker push` to upload the new image version to your container registry.
 
+If you haven't logged in to the container registry where you want to push the image, use the docker login command to authenticate and then push the new image version:
+
+```
+docker login
+docker push new_image_name:new_version
+```
 By following these steps, you can keep your Docker image up-to-date with the latest changes and improvements in your application, ensuring that your containers run with the most recent version of the code and configurations.
 
 > ***Now that you are done with this container, stop and remove it since you won't be using it again.***
@@ -368,7 +381,7 @@ By following these steps, you can keep your Docker image up-to-date with the lat
 
 12. `docker prune`: Remove all unused images, networks, and containers (careful with this command).
     - Example: `docker system prune`
-    
+
 ## Exercise
 1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
 2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
