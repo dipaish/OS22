@@ -162,7 +162,7 @@ $ mkdir my_docker_project
 cd my_docker_project
 ```
 **Step 2: Create your application code**
-You can create a simple application in your favorite programming language. For this illustration, we'll **write a simple bash script**.Lets create a file called hell.sh with the following content.
+You can create a simple application in your favorite programming language. For this illustration, we'll **write a simple bash script**.Lets create a file called hello.sh with the following content.
 
 ```bash
 #!/bin/sh
