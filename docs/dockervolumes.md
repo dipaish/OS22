@@ -1,109 +1,117 @@
-# Interacting with Docker Shell 
-- Lets first create a Docker instance using an Alpine image. 
-- To attach a shell, run the following command 
-```
-PS D:\github\OS22> docker run -it alpine /bin/sh
-/ #
-```
-- To interact with the shell when the container is already running. 
-```
-PS D:\github\OS22> docker exec -it d991 /bin/sh
-/ #
-```
-- To interact with the shell with Docker Desktop
-![Accessing Shell using Docker Desktop](assets/accShell.png)
 
-## Managing Docker Containers
-
-Lets run the following containers: 
-
-`docker run --name app1 -d -p 88:80 dockersamples/static-site`
-
-`docker run --name app2 -d -p 89:80 dockersamples/static-site`
-
-Visit the following links: 
- - app1: [http://localhost:88/](http://localhost:88/)
- - app2: [http://localhost:89/](http://localhost:89/)
-
-***To get a list of running containers : `docker ps`***
-```
-PS D:\github\OS22> docker ps
-CONTAINER ID   IMAGE                       COMMAND                  CREATED       STATUS       PORTS                                   NAMES
-5df0222c409e   dockersamples/static-site   "/bin/sh -c 'cd /usr…"   2 hours ago   Up 2 hours   443/tcp, 0.0.0.0:88->80/tcp             app1
-5806d0aee950   dockersamples/static-site   "/bin/sh -c 'cd /usr…"   2 hours ago   Up 2 hours   80/tcp, 443/tcp, 0.0.0.0:8888->85/tcp   app2
-```
-***To Stop the container (app1) : `docker stop app1`*** You can stop a container with the container ID or the name. You need to type in only the first few letters of the container id. 
-```
-PS D:\github\OS22> docker stop app1
-app1
-```
-***To show all the containers (includind non running containers):***
-```
-$ docker ps -a
-```
-
-***To  start container(s)***
-```
-$ docker start app1 app2
-```
-
-***To restart the  container***
-```
-$ docker restart app2
-```
-***To display the docker host information***
-```
-$ docker info
-```
-
-***To show the running processes in the  container `docker top container id or the name`***
-```
-$ docker top app1
-```
-
-***Retrieve the history of container `docker history ImageID/repository name`***
-```
-docker history 9c6
-
-```
-
-***To Inspect the image `docker inspect imageid/name`***
-```
-$ docker inspect 9c6
-```
-
-***Inspect one of the container and look for the internal ip***
-```
-$ docker inspect app1
-```
-
-
-***Show the logs of the second container using the flag --follow***
-```
-$ docker logs --follow app2
-```
-
-***Browse to the application and see the containers logs from the terminal***
-[http://localhost:88](http://localhost:88)
-
-***To stop  tracking logs***
-```
-$ CTRL + C
-```
-# Docker and Visual Studio Code
- - **Remote - Containers** extension in Visual Studio Code lets you use a Docker container as a full-featured development environment. 
- - You can  open any folder inside (or mounted into) a container.
- - You can easily switch between your containers and have full access to the tools, platform and file system.
-
- ![Remote - Container Extension](assets/remote.png)
- ![Docker in VSC](assets/dockervi.png)
- 
 # Docker Volumes
+# Updates Ongoing
+In this tutorial, we will explore Docker volumes, a powerful feature that enables data persistence and sharing between Docker containers and the host system. 
 
-- Volumes are special directories in a container. 
-- We can use *[Docker Volumes](https://docs.docker.com/storage/volumes/)* to persist data that are generated and used by Docker containers. 
-- Volumes are managed by Docker and it is preffered mechanism to persist data. 
+## What is a Docker Volume? 
+
+- A Docker Volume is a way to store and manage data separately from a Docker container. 
+- A *[Docker Volume](https://docs.docker.com/storage/volumes/)* allows data to persist even after the containers are stopped or removed. 
+- It provides durable and flexible storage solution for sharing data between containers and the host system. 
+- Volumes are useful for preserving critical data like databases or application files, making it easier to manage and backup data in Docker environments.
 - The another mechanism to persist data is [Bind Mounts](https://docs.docker.com/storage/bind-mounts/).
+
+### Why to use Docker Volumes?
+
+Docker volumes offer several benefits that significantly improve how we handle data within Docker containers. Some of the benefits are listed below: 
+
+- **Data Persistence:** Keeping your data accessible and available for the duration of a container's life is one of the best features of Docker volumes. Your crucial data, such as databases or crucial application files, is thus safe even if you stop or remove the container. 
+
+- **Data Sharing:** Volumes make it simple to share data between many containers. This is especially useful in configurations such as microservices architectures, where different portions of your app must communicate and share information. 
+
+- **Backup and restore:** When it comes to backing up and restoring your data, Docker volumes come in handy. As your data is stored in a volume outside the container, you may quickly backup its contents from the host machine. This ensures the safety of your data, and if any unfortunate system failures or unanticipated issues emerge, you can immediately restore your vital data without much difficulty, minimizing downtime and preventing data loss.
+
+- **Versioning and Upgrades:**  Docker volumes enable you separate your data from the containers, allowing you to update or replace containers without affecting your data. Your data remains consistent and compatible with later container versions, making upgrades quick and easy without the risk of data corruption or loss.
+
+## Types of Docker Volumes
+
+Docker provides various types of volumes, each with its own set of use cases and characteristics. Let's look at the three primary forms of Docker volumes:
+
+ **Named Volumes:** A named volume in Docker is a user-defined volume with a specific name that provides a convenient way to persist and manage data separately from the containers. When you create them, you give them a unique name, and Docker manages their lifecycle. These volumes survive even after the related containers are removed, making them excellent for long-term data storage.
+
+***How to create a named volume?***
+
+You can create a named volume in Docker using the ```docker volume create``` command. 
+
+**Example**
+```bash
+docker volume create my_named_volume
+```
+
+Lets confirm that the volume has been created. To list all the volumes that have been created on a Docker host, we can use the following command
+
+```bash
+docker volume ls
+```
+
+Let's create a container to persist MySQL database data and mount the named volume we just created. MySQL stores its database files in the ```/var/lib/mysql``` directory. 
+
+```bash
+docker run -d --name mysql_db -e MYSQL_ROOT_PASSWORD=12345678 -v my_named_volume:/var/lib/mysql mysql
+```
+
+**In this command:**
+
+-d: Runs the container in the background (detached mode).
+--name mysql_db: Specifies a custom name for the container (you can choose any name).
+-e MYSQL_ROOT_PASSWORD=12345678: Sets the root password for the MySQL database.
+-v my_named_volume:/var/lib/mysql: Mounts the named volume mysql_data to the /var/lib/mysql directory inside the container.
+mysql: Specifies the latest version of the MySQL image.
+
+**Accessing MySQL Database**
+
+Now that the MySQL container is running and is using the named volume, we can access the MySQL database 
+
+```bash
+# Connect to the MySQL database
+docker exec -it mysql_db mysql -u root -p
+
+# Lets create a couple of databases
+create database db1; 
+create database db2;
+
+#lets check our databases
+show databases; 
+
+# To exit the MySQL 
+exit;
+
+```
+
+> The named volume my_named_volume will store the MySQL data on the Docker host, inside the Docker volumes directory. This allows you to maintain the database data even if you stop or remove the MySQL container. 
+
+Let's now delete the container and create a new one while using the same volume. This will help us verify if the data still exists within the volume after recreating the container.
+
+```bash
+# To force remove a Docker container
+docker rm -f mysql_db
+
+# To create a container and mount the volume that we created earlier. 
+docker run -d --name mysql_db1 -e MYSQL_ROOT_PASSWORD=12345678 -v my_named_volume:/var/lib/mysql mysql
+
+# Connect to the MySQL database
+docker exec -it mysql_db1 mysql -u root -p
+
+#lets check our databases
+show databases; 
+
+# you may exit the MySQL 
+exit;
+```
+
+The databases we created earlier persist and remain available even after creating a new container. This demonstrates the power of using Docker volumes to ensure data persistence and accessibility across container lifecycle.
+
+***Where is the named volume located? ***
+
+Named volumes are stored within the Docker host's filesystem. By default, Docker stores named volumes in the **/var/lib/docker/volumes** directory on Linux systems. However, the exact location may vary depending on your Docker installation and configuration.
+
+## Creating and Managing Docker Volumes
+
+
+## Using Docker Volumes in Containers
+
+## Real World Example: Using Volume for MySQL databases.
+
 
 ***To make things clear, lets go through a simple demonstration of a volume***
 
@@ -163,7 +171,7 @@ Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 -----          13/09/2022     8.59              0 hello.txt
 ```
-#### You can aslo access it from Windows file explorer. 
+#### You can also access it from Windows file explorer. 
 
 [![Click to Watch Video](assets/www.png)](https://www.youtube.com/watch?v=-JKWxSPdwD4 "Click to Watch Video")
 
@@ -261,3 +269,4 @@ CMD cat test
 - Get the shell access and create some more files to it.
 - Delete the container and run the image again by attaching the volume . 
 - Check if your files still exist.
+
