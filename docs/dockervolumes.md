@@ -52,11 +52,12 @@ docker run -d --name mysql_db -e MYSQL_ROOT_PASSWORD=12345678 -v my_named_volume
 
 **In this command:**
 
--d: Runs the container in the background (detached mode).
---name mysql_db: Specifies a custom name for the container (you can choose any name).
--e MYSQL_ROOT_PASSWORD=12345678: Sets the root password for the MySQL database.
--v my_named_volume:/var/lib/mysql: Mounts the named volume mysql_data to the /var/lib/mysql directory inside the container.
-mysql: Specifies the latest version of the MySQL image.
+- `-d`: Runs the container in the background (detached mode).
+- `--name mysql_db`: Specifies a custom name for the container (you can choose any name).
+- `-e MYSQL_ROOT_PASSWORD=12345678`: Sets the root password for the MySQL database.
+- `-v my_named_volume:/var/lib/mysql`: Mounts the named volume `mysql_data` to the `/var/lib/mysql` directory inside the container.
+- `mysql`: Specifies the latest version of the MySQL image.
+
 
 **Accessing MySQL Database**
 
@@ -101,9 +102,10 @@ exit;
 
 The databases we created earlier persist and remain available even after creating a new container. This demonstrates the power of using Docker volumes to ensure data persistence and accessibility across container lifecycle.
 
-***Where is the named volume located? ***
+***Where is the named volume located?***
 
-Named volumes are stored within the Docker host's filesystem. By default, Docker stores named volumes in the **/var/lib/docker/volumes** directory on Linux systems. However, the exact location may vary depending on your Docker installation and configuration.
+Named volumes are stored within the Docker host's filesystem. By default, Docker stores named volumes in the **/var/lib/docker/volumes** directory on Linux systems.
+> However, the exact location may vary depending on your Docker installation and configuration.
 
 ## Creating and Managing Docker Volumes
 
