@@ -243,9 +243,9 @@ Anonymous volumes offer several advantages:
 
 6. **Bind Mount a Host Directory to a Container**
     ```bash
-    > docker run -d --name my_container -v /host/path:/container/path my_image
+     docker run -d --name my_container -v /host/path:/container/path my_image
     ```
-    This command binds the host directory /host/path to the container's /container/path directory.
+    > This command binds the host directory /host/path to the container's /container/path directory.
 
 7. **Use Anonymous Volumes**
     ```bash
@@ -257,12 +257,12 @@ Anonymous volumes offer several advantages:
     ```bash
     docker volume prune
     ```
-9. ** To start a container with a volume**
+9. **To start a container with a volume**
 
 When you start a container with a volume that does not exist, the Docker will create the volume for you. 
 ***Lets start alpine with a volume to which we will add persistent data.***
 
-- Create a volume or use the existing one. Lets create a new volume called alpinedata
+- Lets create a new volume called alpinedata
 ```docker
 docker volume create alpinedata
 ```
