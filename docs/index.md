@@ -149,14 +149,9 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 
    To stop the container you just launched, you'll need the container ID. Once you have it, use the `docker stop` command. Then, if you no longer need the container, remove it using the `docker rm` command.
 
->**Note:**  The `-d` flag enables **detached mode**, which detaches the running container from the terminal/shell and returns your prompt after the container starts. 
-- Run `docker ps` to view the running containers.
-- Stop the container that you have just launched. In order to do this, you need the container ID.
-- Remove the container (docker rm )
-
 >**Note:** It is not required to specify the entire `CONTAINER ID`. You can just specify a few starting characters and if it is unique among all the containers that you have launched, the Docker client will intelligently pick it up.
 
-- Launch a container in detached mode 
+***Example Launching a container in detached mode*** 
 
 ```
 $ docker run --name cname -e MYSQL_ROOT_PASSWORD=yourpassword -d mysql:tag
