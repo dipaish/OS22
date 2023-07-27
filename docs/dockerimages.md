@@ -383,13 +383,29 @@ By following these steps, you can keep your Docker image up-to-date with the lat
     - Example: `docker system prune`
 
 ## Exercise
-1. Write a Dockerfile to build a Docker image using Ubuntu. Add MySQL database service to your image and push it to DockerHub. Tag the image as username/ubuntu-git:1.1 
-2. Run your image from DockerHub, get to the interactive terminal and verify that you have installed MySQL (type `sudo mysql` in terminal, if you get the mysql prompt, it's installed. To exit, type `exit`)
-3. Write a Dockerfile to create an image with CMD instruction (any). Use Alpine image as the base image.  
-4. Continue working on the Dockerfile created in Task 3. Specify a working directory (WORKDIR as /opt) and use RUN to write "This is my work directory " in a text file test.txt (`echo "This is my work Directory" >test.txt`). Build Docker image as **workdir:v1** and run the image as `docker run -it wordkir:v1 ls`. Make sure that you find **test.txt**. 
-5. Write a Docker file to build a Docker image that runs a simple Java app in a Docker container. 
-6. Cleanup: You probably don't need any of these containers, therefore you may delete all of them with the following command
+1. **Task 1: Building and Pushing a Docker Image**
 
+   Write a Dockerfile to build a Docker image using Ubuntu. Include the MySQL database service in your image and push it to DockerHub. Tag the image as "username/ubuntu-git:1.1".
+
+2. **Task 2: Running and Verifying the Image**
+
+   Run the Docker image you pushed to DockerHub. Access the interactive terminal and verify that MySQL is installed (type `sudo mysql` in the terminal). If you get the MySQL prompt, it means it's installed. To exit, type `exit`.
+
+3. **Task 3: Dockerfile with CMD Instruction**
+
+   Write a Dockerfile that creates an image with a CMD instruction of your choice. Use the Alpine image as the base image.
+
+4. **Task 4: Dockerfile with Working Directory and RUN**
+
+   Continue working on the Dockerfile from Task 3. Specify a working directory (WORKDIR) as "/opt" and use the RUN instruction to write "This is my work directory" in a text file named "test.txt" (`echo "This is my work Directory" > test.txt`). Build the Docker image with the tag "workdir:v1" and run the image as `docker run -it workdir:v1 ls`. Make sure to find "test.txt" in the output.
+
+5. **Task 5: Docker Image with Simple Java App**
+
+   Write a Dockerfile to build a Docker image that runs a simple Java app in a Docker container.
+
+6. **Task 6: Cleanup**
+
+   To clean up, you may delete unnecessary containers with the following command: 
 ```
 docker rm -f $(docker ps -aq)
 ```
