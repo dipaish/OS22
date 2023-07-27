@@ -107,6 +107,30 @@ The databases we created earlier persist and remain available even after creatin
 Named volumes are stored within the Docker host's filesystem. By default, Docker stores named volumes in the **/var/lib/docker/volumes** directory on Linux systems.
 > However, the exact location may vary depending on your Docker installation and configuration.
 
+To inspect a named volume and view its details, including the location on the host system, you can use the `docker volume inspect` command. Here's an example:
+
+```bash
+docker volume inspect my_named_volume
+```
+Replace my_named_volume with the name of the named volume you want to inspect.
+
+The output will provide a JSON representation of the named volume's properties, including its Name, Driver, Mountpoint, and other relevant information. The "Mountpoint" field in the output will indicate the location on the host system where the named volume is stored.
+
+For example:
+
+[
+    {
+        "CreatedAt": "2023-07-19T12:34:56Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/my_named_volume/_data",
+        "Name": "my_named_volume",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+In this example, the "Mountpoint" field shows that the named volume my_named_volume is located at /var/lib/docker/volumes/my_named_volume/_data on the host system. This is where the data for the named volume is stored.
+
 ## Creating and Managing Docker Volumes
 
 
