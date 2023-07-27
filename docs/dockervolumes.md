@@ -1,6 +1,4 @@
-
 # Docker Volumes
-# Updates Ongoing
 In this tutorial, we will explore Docker volumes, a powerful feature that enables data persistence and sharing between Docker containers and the host system. 
 
 ## What is a Docker Volume? 
