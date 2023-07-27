@@ -218,7 +218,6 @@ Anonymous volumes offer several advantages:
 
 
 ## List of Docker Volume Commands
-
 1. **Create a Named Volume**
    ```bash
    docker volume create my_volume
@@ -278,10 +277,10 @@ ls data
 - Exit the container `exit`
 - Delete the container `docker rm continaerid`
 
-9. **Run a new container and attach the alpinedata volume to it.** 
+10. **Run a new container and attach the alpinedata volume to it.** 
 ```bash
 docker run -it -v alpinedata:/data alpine /bin/sh
 ```
-#### [Read More on Volumes](https://docs.docker.com/storage/volumes/)
+***[Read More on Volumes](https://docs.docker.com/storage/volumes/)***
 
 
