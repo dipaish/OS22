@@ -281,4 +281,22 @@ docker run -it -v alpinedata:/data alpine /bin/sh
 ```
 ***[Read More on Volumes](https://docs.docker.com/storage/volumes/)***
 
+## Exercise 
+1. **Task 1: Create a Named Volume and Run a MySQL Database**
+
+   Create a named volume with your first name and last name as "fname_lname" and then use this volume to run a MySQL database container.
+
+2. **Task 2: Create a Bind Mount and Run a MySQL Database**
+
+   Create a bind mount called "mysqlData" and use it to run a MySQL database container. Bind the mount to a specific directory inside the container.
+
+3. **Task 3: Locate the Named Volume on Your Host Machine**
+
+   After creating the named volume "fname_lname," find and type the absolute path on your host machine where this volume is located.
+
+4. **Task 4: Run an Image Using Anonymous Volume**
+
+   Run any Docker image of your choice and utilize an anonymous volume. Locate and identify the directory on your host system where this anonymous volume is created.
+
+
 
