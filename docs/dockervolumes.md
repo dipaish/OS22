@@ -117,8 +117,7 @@ Replace my_named_volume with the name of the named volume you want to inspect.
 The output will provide a JSON representation of the named volume's properties, including its Name, Driver, Mountpoint, and other relevant information. The "Mountpoint" field in the output will indicate the location on the host system where the named volume is stored.
 
 For example:
-
-[
+```json
     {
         "CreatedAt": "2023-07-19T12:34:56Z",
         "Driver": "local",
@@ -128,7 +127,7 @@ For example:
         "Options": {},
         "Scope": "local"
     }
-]
+```
 In this example, the "Mountpoint" field shows that the named volume my_named_volume is located at /var/lib/docker/volumes/my_named_volume/_data on the host system. This is where the data for the named volume is stored.
 
 ## Creating and Managing Docker Volumes
