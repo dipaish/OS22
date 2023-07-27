@@ -27,11 +27,11 @@ Hello from Docker.
 This message shows that your installation appears to be working correctly.
 ...
 ```
-# The Docker Dashboard
+## The Docker Dashboard
 It provides a quick view of the containers running on your machine. You have quick access to container logs, and you can get a shell inside the container. You can easily manage containers, such as stopping, starting, or removing them. 
 ![Docker Dashboard](assets/docker.png "Docker Dashboard").
 
-# Running your first Container
+## Running your first Container
 
 In this section, you will run an [Alpine Linux](http://www.alpinelinux.org/) container (a lightweight Linux distribution) on your system and get familiar with the `docker run` command.
 
@@ -121,7 +121,7 @@ Running the `run` command with the `-it` flags attaches us to an interactive tty
 
  To find out more about `run`, use `docker run --help` to see a list of all flags it supports. As you proceed further, we'll see a few more variants of `docker run`.
 
-# Terminology
+## Terminologies
 In the last section, you saw a lot of Docker-specific jargon which might be confusing to some. So before you go further, let's clarify some terminology that is used frequently in the Docker ecosystem.
 
 - *Images* - The file system and configuration of our application which are used to create containers. To find out more about a Docker image, run `docker inspect alpine`. In the demo above, you used the `docker pull` command to download the **alpine** image. When you executed the command `docker run hello-world`, it also did a `docker pull` behind the scenes to download the **hello-world** image.
@@ -130,7 +130,7 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - *Docker client* - The command line tool that allows the user to interact with the Docker daemon.
 - *Docker Store* - A [registry](https://store.docker.com/) of Docker images, where you can find trusted and enterprise ready containers, plugins, and Docker editions. You'll be using this later in this tutorial.
 
-# Exercise 
+## Exercise 
 1. **Task 1: Find and Run a MySQL Image**
 
    Your task is to search for an appropriate MySQL image from Docker Hub and run the MySQL database service in a container.
@@ -148,7 +148,7 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 4. **Task 4: Stop and Remove the Container**
 
    To stop the container you just launched, you'll need the container ID. Once you have it, use the `docker stop` command. Then, if you no longer need the container, remove it using the `docker rm` command.
-   
+
 >**Note:**  The `-d` flag enables **detached mode**, which detaches the running container from the terminal/shell and returns your prompt after the container starts. 
 - Run `docker ps` to view the running containers.
 - Stop the container that you have just launched. In order to do this, you need the container ID.
