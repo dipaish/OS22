@@ -131,9 +131,24 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 - *Docker Store* - A [registry](https://store.docker.com/) of Docker images, where you can find trusted and enterprise ready containers, plugins, and Docker editions. You'll be using this later in this tutorial.
 
 # Exercise 
-- Your task is to run a MySQL database service in a container.
-- You need to find an appropriate MySQL image from the [Dockerhub](https://hub.docker.com/)
-- You are required run the image in detached mode. (docker run )
+1. **Task 1: Find and Run a MySQL Image**
+
+   Your task is to search for an appropriate MySQL image from Docker Hub and run the MySQL database service in a container.
+
+2. **Task 2: Run MySQL Image in Detached Mode**
+
+   After finding the suitable MySQL image, run it in detached mode using the `docker run` command with the `-d` flag. This mode allows the container to run in the background, freeing up your terminal for other tasks.
+
+   Note: The `-d` flag enables detached mode, detaching the running container from the terminal/shell and returning your prompt after the container starts.
+
+3. **Task 3: View Running Containers**
+
+   Use the `docker ps` command to view the list of running containers and verify that your MySQL container is up and running.
+
+4. **Task 4: Stop and Remove the Container**
+
+   To stop the container you just launched, you'll need the container ID. Once you have it, use the `docker stop` command. Then, if you no longer need the container, remove it using the `docker rm` command.
+   
 >**Note:**  The `-d` flag enables **detached mode**, which detaches the running container from the terminal/shell and returns your prompt after the container starts. 
 - Run `docker ps` to view the running containers.
 - Stop the container that you have just launched. In order to do this, you need the container ID.
