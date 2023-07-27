@@ -27,7 +27,8 @@ Docker volumes offer several benefits that significantly improve how we handle d
 
 Docker provides various types of volumes, each with its own set of use cases and characteristics. Let's look at the three primary forms of Docker volumes:
 
- **Named Volumes:** A named volume in Docker is a user-defined volume with a specific name that provides a convenient way to persist and manage data separately from the containers. When you create them, you give them a unique name, and Docker manages their lifecycle. These volumes survive even after the related containers are removed, making them excellent for long-term data storage.
+### Named Volumes
+ A named volume in Docker is a user-defined volume with a specific name that provides a convenient way to persist and manage data separately from the containers. When you create them, you give them a unique name, and Docker manages their lifecycle. These volumes survive even after the related containers are removed, making them excellent for long-term data storage.
 
 ***How to create a named volume?***
 
@@ -112,9 +113,9 @@ To inspect a named volume and view its details, including the location on the ho
 ```bash
 docker volume inspect my_named_volume
 ```
-Replace my_named_volume with the name of the named volume you want to inspect.
+Replace ```my_named_volume``` with the name of the named volume you want to inspect.
 
-The output will provide a JSON representation of the named volume's properties, including its Name, Driver, Mountpoint, and other relevant information. The "Mountpoint" field in the output will indicate the location on the host system where the named volume is stored.
+The output will provide a ```JSON representation``` of the named volume's properties, including its Name, Driver, Mountpoint, and other relevant information. The **"Mountpoint"** field in the output will indicate the **location** on the host system where the named volume is stored.
 
 For example:
 ```json
@@ -130,125 +131,134 @@ For example:
 ```
 In this example, the "Mountpoint" field shows that the named volume my_named_volume is located at /var/lib/docker/volumes/my_named_volume/_data on the host system. This is where the data for the named volume is stored.
 
-## Creating and Managing Docker Volumes
+### Docker Bind Mounts
 
+Bind mounts are directories or files mounted from the host system inside a Docker container. Any changes performed in either the container or the host system are immediately reflected in both places when using bind mounts. This allows for smooth file and data access between the host and the container.
 
-## Using Docker Volumes in Containers
+***How to use Bind Mounts?***
 
-## Real World Example: Using Volume for MySQL databases.
+In order to use a bind mount, When running a container, we must specify both the destination directory inside the container and the source directory or file on the host.  
 
+**Example**
 
-***To make things clear, lets go through a simple demonstration of a volume***
-
-- Run an interactive shell within an alpine container 
-```docker
-docker run -it alpine /bin/sh
+```bash
+docker run -d --name my_container -v /host/path:/container/path my_image
 ```
-- Lets create a new folder as mydata
+**In this command:**
+
+- `-d`: Runs the container in the background (detached mode).
+- `--name my_container`: Specifies a custom name for the container.
+- `-v /host/path:/container/path`: Mounts the directory at /host/path on the host to /container/path inside the container.
+- `my_image`: Specifies the Docker image to use for the container.
+
+***Benefits of Bind Mounts***
+
+Bind mounts offer several advantages:
+
+- **Direct Access**: Bind mounts provide direct access to host files and directories from within the container, allowing seamless data sharing and modification.
+
+- **Host Data Persistence**: Data stored in a bind mount remains intact even if the container is removed, making it ideal for persisting critical data.
+
+- **Development Workflow**: Bind mounts are extremely useful during development as they enable real-time changes and updates without the need to rebuild the Docker image.
+
+***Practical Use Case of Bind Mount***
+
+Let's illustrate a practical use case of using a bind mount. Assume we have a web application code on the host system, and we want to test it inside a Docker container without rebuilding the image each time we make changes.
+
+```bash
+# Assuming our web app code is in /path/to/my_web_app
+docker run -d --name web_app -v /path/to/my_web_app:/usr/share/nginx/html nginx
+```
+
+In this example, we're running an Nginx web server container (nginx image) and mounting our local web app code directory (/path/to/my_web_app) into the container at /usr/share/nginx/html. Any changes made to the web app on the host will immediately reflect inside the container, simplifying the development and testing process.
+
+### Anonymous Volumes
+When a container is started without specifying a specific named volume or bind mount, Docker creates volumes that are associated to the container. These volumes are known as anonymous volumes. 
+
+***How to use Anonymous Volumes?***
+
+When running a container, just omit the -v or --volume option to utilize an anonymous volume. Docker will then create the volume for you.
+
+**Example**
+
+```bash
+docker run -d --name my_container my_image
+```
+- `-d`: Runs the container in the background (detached mode).
+- `--name my_container`: Specifies a custom name for the container.
+- `my_image`: Specifies the Docker image to use for the container.
+
+***Where is the anonymous volume located?***
+
+Anonymous volumes in Docker are located within the Docker data directory on the host system. The exact location of the Docker data directory depends on the operating system and the Docker installation method.
+
+For most standard Docker installations:
+
+- On Linux: Anonymous volumes are stored in the `/var/lib/docker/volumes` directory.
+
+- On Windows: Anonymous volumes are stored in the `C:\ProgramData\docker\volumes` directory.
+
+- On macOS: Anonymous volumes are stored in the `/var/lib/docker/volumes` directory (running Docker in a Linux VM).
+
+It's important to note that anonymous volumes are managed by Docker and are assigned a random, unique name. They are not explicitly named like named volumes. Docker takes care of the volume creation, naming, and cleanup when the container is removed.
+
+To inspect the anonymous volume location, you can use the following command:
+
+```bash
+docker volume inspect <volume_name>
+```
+
+***Benefits of Anonymous Volumes***
+
+Anonymous volumes offer several advantages:
+
+- **Simplified Setup**: Anonymous volumes eliminate the need to pre-create volumes, making it easier and quicker to start containers without worrying about volume management.
+
+- **Automatic Cleanup**: When the container is removed, any anonymous volumes associated with it are automatically removed as well, reducing the risk of unused volumes cluttering your system.
+
+
+## List of Docker Volume Commands
+
+1. **Create a Named Volume**
+   ```bash
+   docker volume create my_volume
+    ```
+2. **List Docker Volumes**
+   ```bash
+   docker volume ls
+   ```
+3. **Inspect a Volume**
     ```bash
-        mkdir mydata
+    docker volume inspect my_volume
     ```
-- Lets create a text file as hello.txt in 'mydata'
-```bash
-touch mydata/hello.txt
-```
-- Lets confirm the file is created. 
-```bash
-ls mydata
-```
-- Lets exit the container shell 
-```docker
-exit
-```
- ***The container has now exited. Let's start the container again.***
-```docker
-docker start continerID
-```
-#### Let's access the shell and see what happens to the file we created earlier, the file is still there 
-```bash
-PS D:\github\OS22> docker exec -it 661 /bin/sh
-/ # ls
-bin     etc     lib     mnt     opt     root    sbin    sys     usr
-dev     home    media   mydata  proc    run     srv     tmp     var
-/ # ls mydata/
-hello.txt
-/ #
-```
-#### To access the file from the host machine in Windows 10/11 (Make sure that you have WSL integration checked as in the diagram below:)
- ![Docker in VSC](assets/wsl.png)
-
-
-Let’s inspect our container in order to get the location of the container’s layer. We can use the `inspect` command and then scroll into the output until the GraphDriver key.
-
-```docker
-docker container inspect yourcontainerid
-```
-Get the path of the file that is specified in *UpperDir* and copy the path
- ![Check path for the upperDir](assets/upperD.png)
-
-#### To access the directory or file from the Windows machine, type the command below: (please remember to replace the path with your own path)
-```powershell 
-PS D:\GitHubRepos\OS22> ls \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
-
-    Directory: \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
------          13/09/2022     8.59              0 hello.txt
-```
-#### You can also access it from Windows file explorer. 
-
-[![Click to Watch Video](assets/www.png)](https://www.youtube.com/watch?v=-JKWxSPdwD4 "Click to Watch Video")
-
-#### Now let's remove the container & try to access the path
-```docker
-PS D:\GitHubRepos\OS22> docker stop  661
-661
-PS D:\GitHubRepos\OS22> 
-PS D:\GitHubRepos\OS22> docker rm 661
-661
-PS D:\GitHubRepos\OS22> ls \\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata
-Get-ChildItem: Cannot find path '\\wsl.localhost\docker-desktop-data\data\docker\overlay2\c9cd2164b2f7f3c1b27d4729631b73ea2fc52137a3be379edf1b054201676a1b\diff\mydata' because it does not exist.
-PS D:\GitHubRepos\OS22> 
-
-```
-***It seems the folder defined in the UpperDir above does not exist anymore.  Try running the ls command again and see the results.***
-
->Note: The data created in a container is not persisted. It’s removed with the container’s layer when the container is deleted.To persis data, we will use volume.
-
-# Creating a Docker Volume
-- You can create Docker Volume in two different ways
-    - Within a `Dockerfile` 
-    ```
-    VOLUME /mydata
-    ```
-    - With the Docker run command with the `-v` flag
+4. **Remove a Volume**
     ```bash
-    $ docker run -d -v /mydata myapp
+    docker volume rm my_volume
     ```
-##### In both cases, `/mydata` (inside the container) will be a volume.
+5. **Create and Run a Container with a Named Volume**
+   ```bash 
+    docker run -d --name my_container -v my_volume:/path/in/container my_image
+    ```
+    > This command creates a container with a named volume my_volume attached to the container's /path/in/container directory.
 
-***You can create and manage volumes that are outside the scope of any container***
-```docker
-docker volume create myvolume
-```
-### To list volumes
-```docker
-docker volume ls
-```
-### To inspect a volume 
-```docker
-docker volume inspect volumename
-```
-### To remove a volume 
-```docker
-docker volume rm volumename
-```
-### To remove (pruning) all unused volumes 
-```docker
-docker volume prune
-```
-### To start a container with a volume
+6. **Bind Mount a Host Directory to a Container**
+    ```bash
+    > docker run -d --name my_container -v /host/path:/container/path my_image
+    ```
+    This command binds the host directory /host/path to the container's /container/path directory.
+
+7. **Use Anonymous Volumes**
+    ```bash
+    docker run -d --name my_container my_image
+    ```
+     > In this case, an anonymous volume will be automatically created and attached to the container.
+
+8. **To remove (pruning) all unused volumes** 
+    ```bash
+    docker volume prune
+    ```
+9. ** To start a container with a volume**
+
 When you start a container with a volume that does not exist, the Docker will create the volume for you. 
 ***Lets start alpine with a volume to which we will add persistent data.***
 
@@ -268,30 +278,10 @@ ls data
 - Exit the container `exit`
 - Delete the container `docker rm continaerid`
 
-### Run a new container and attach the alpinedata volume to it. 
+9. **Run a new container and attach the alpinedata volume to it.** 
 ```bash
 docker run -it -v alpinedata:/data alpine /bin/sh
 ```
 #### [Read More on Volumes](https://docs.docker.com/storage/volumes/)
 
-#### Check the files in the data directory and verify that they still exist 
-```bash
-ls data
-```
-## Creating Docker Volume within a **Dockerfile**
-
-###### Content of the Dockerfile
-```bash
-FROM alpine:latest
-RUN mkdir /data
-WORKDIR /data
-RUN echo "Hello from Volume" > test
-VOLUME /data
-CMD cat test
-```
-- Build the image `docker build . -t   vv`
-- Run it `docker run vv`  
-- Get the shell access and create some more files to it.
-- Delete the container and run the image again by attaching the volume . 
-- Check if your files still exist.
 
