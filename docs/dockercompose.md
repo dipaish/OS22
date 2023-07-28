@@ -44,7 +44,7 @@ cd my_compose_project
 
 **Step 2: Create a Docker Compose YAML File**
 
-In this project directory, we will create a file named ```docker-compose.yml```. This file will contain the configuration for your multi-container environment. 
+In this project directory, we will create a file named ```docker-compose.yml```. This file will contain the configuration for our multi-container environment. 
 
 **Step 3: Define Services in Docker Compose**
 
@@ -54,7 +54,7 @@ We will define services that we need in the ```docker-compose.yml``` file.
 
 In this example, we will define two services: **webserver** and **database.** 
 - The **webserver** service uses the latest Nginx image and maps the host's port 80 to the container's port 80. 
-- The **database.** service uses the latest MySQL image and sets environment variables for the root password, 
+- The **database** service uses the latest MySQL image and sets environment variables for the root password, 
 
 A docker compose file (docker-compose.yml) looks like this
 
@@ -63,12 +63,12 @@ version:'3'
 
 services:
   webserver:
-    image: nginx:latest
+    image: nginx
     ports:
       - "80:80"
 
   database:
-    image: mysql:latest
+    image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
 
@@ -112,7 +112,7 @@ In this case, we can further verify that the Nginx server is up and running by o
 
 
 
-
+<hr>
 
 - `version:3`: It specifies the version of the docker-compose file syntax.
 - `services:`It describes the services that are to be run. In the above example, we have two services **web** & **redis.**
