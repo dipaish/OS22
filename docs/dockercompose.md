@@ -241,7 +241,12 @@ Open your web browser and go to http://localhost. You should see the output of i
 
 
 ## Exercise 
-1. Follow the guidelines available at this link and get more familiar with Docker Compose by completing the task. 
-  [Get Started with Docker Compose](https://docs.docker.com/compose/gettingstarted/) 
 
-2. Complete the task available at this link [Setting up Local WordPress Development using - Docker Compose](https://dipaish.github.io/docker/index.html) 
+**Task 1: Getting Started with Docker Compose**
+
+To begin your journey with Docker Compose, visit the page [Get Started with Docker Compose](https://docs.docker.com/compose/gettingstarted/) and follow the step by step guidelines. This guide will introduce you to the basics of Docker Compose and walk you through the process of defining and running multi-container applications using a simple example.
+
+
+**Task 2: Practice with a Task**
+
+Next, put your newly acquired knowledge into practice by completing the task available at [Setting up Local WordPress Development using - Docker Compose](https://dipaish.github.io/docker/index.html) This task will guide you in setting up a local WordPress development environment using Docker Compose. You will learn how to configure and run a WordPress container along with a MySQL database, providing you with hands-on experience with Docker Compose for real-world scenarios.
