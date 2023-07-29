@@ -56,7 +56,7 @@ In this example, we will define two services: **webserver** and **database.**
 - The **webserver** service uses the latest Nginx image and maps the host's port 80 to the container's port 80. 
 - The **database** service uses the latest MySQL image and sets environment variables for the root password, 
 
-A docker compose file (docker-compose.yml) looks like this
+**Example 1: A docker compose file (docker-compose.yml)**
 
 ```yaml
 version:'3'
@@ -98,7 +98,7 @@ Now that we have defined the services in the docker-compose.yml file, it's time 
 docker-compose up -d
 ```
 
-Step 6: Verify the Running Containers
+**Step 6: Verify the Running Containers**
 
 To ensure that the multi-container application is running, we can use the following command to view the list of running containers:
 
@@ -107,102 +107,140 @@ docker-compose ps
 ```
 In this case, we can further verify that the Nginx server is up and running by opening our web browser and navigating to http://localhost:80. 
 
+We can also login to MySQL using the following command: 
+
+```bash
+docker exec -it your_container_id mysql -u root -p 
+```
+
+**Example 2: A docker compose file (docker-compose.yml) that uses a Dockerfile to build a custom image**
+
+Let's assume that we have a PHP web application with a MySQL database. We will also create a custom Docker image for Apache to serve PHP pages.
+
+**Step 1: Set Up the Project Directory**
+
+Create a new directory and create the following files inside it:
+
+**docker-compose.yml**: Docker Compose file to define the services.
+
+**Dockerfile**: Custom Dockerfile to build the Apache image.
+
+**index.php**: A simple PHP file to test the web application. You can copy the following code and save it as ```index.php```.
+
+```php
+<?php
+echo "Hello, World!";
+?>
+
+```
+**Step 2: Create Dockerfile for Apache**
+
+We'll make a ```Dockerfile``` that uses the official ```PHP Apache image``` (php:7.4-apache) as our base image and ```install the MySQL extensions``` required for PHP to connect with the MySQL database. The ```working directory``` for serving web files with Apache will then be configured to ```/var/www/html```. The index.php file is then copied from the local directory to the container's /var/www/html directory. We will open Port 80 to give access to the web server. Finally, we will use the ```apache2-foreground``` command to start the Apache server within the container. 
+
+```docker
+# Use the official PHP Apache image as the base image
+FROM php:7.4-apache
+
+# Install MySQL extensions for PHP
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Set the working directory inside the container
+WORKDIR /var/www/html
+
+# Copy the application code to the container
+COPY index.php .
+
+# Expose port 80 for Apache
+EXPOSE 80
+
+# Start Apache server
+CMD ["apache2-foreground"]
+
+```
+**Step 3: Create docker-compose.yml**
+```yaml
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./index.php:/var/www/html/index.php
+    depends_on:
+      - database
+
+  database:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: myuserpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+```
+In the above Docker Compose file, we have defined two services: `webserver` and `database`. The `webserver` service is built using the custom Dockerfile we created earlier. It is configured to map port 80 on the host to port 80 on the container, allowing it to serve the PHP application. Additionally, the `index.php` file is mounted as a volume inside the container, enabling live code changes without the need to rebuild the image.
+
+On the other hand, the `database` service uses the official MySQL image and sets up environment variables for the MySQL database, such as the root password, database name, user, and user password. Moreover, to ensure data persistence, the MySQL data is stored as a named volume named `db_data`. This means that even if the container is removed, the data will still be retained, avoiding any data loss. This combination of services and configurations allows us to create a complete and functional multi-container application that includes a PHP web server and a MySQL database.
+
+**Step 4: Run Docker Compose**
+
+Open a terminal in the project directory and run the following command to start the services:
+
+```
+docker-compose up -d
+```
+
+**Step 5: Access the Web Application**
+
+Open your web browser and go to http://localhost. You should see the output of index.php, which means the Apache server is running and serving PHP pages.
 
 
-
-
-
-<hr>
-
-- `version:3`: It specifies the version of the docker-compose file syntax.
-- `services:`It describes the services that are to be run. In the above example, we have two services **web** & **redis.**
-- `web:` It is the name of the service. Docker Compose will create the container with the name we provide. 
+**Notes**
 
 - `build:` It specifies the location of a Dockerfile. The **.** sign represents the same directory where docker-compose.yml file is located.
 
-- `redis:` Redis is the name of the service that is built from the redis image. Docker Compose will create the container for the redis service.
 - `ports:` It is describing how the container's port should be mapped to the host machine.
 
 - `volumes:` We are attaching our files/directories to the containers'. 
-- `image:` To specify a pre-built image that we want to use
 
 - `depends_on:` It tells a dependency of a service to another.
 
-## Creating your first Docker Compose file.
-1. Create a directory and get into the directroy 
-```
-mkdir docker99 
-cd docker99
-```
-2. Create a docker-compose.yml file 
+## Common Docker Compose Commands
 
-```yml
-services:
-  database:
-    image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-    ports:
-      - "6034:3306"
-    volumes: # it persists updates made to the database
-      - dbdata:/var/lib/mysql
-  phpmyadmin:
-    depends_on:
-      - database
-    image: phpmyadmin
-    ports:
-      - "8000:80"
-    environment:
-      PMA_HOST: database
-      MYSQL_ROOT_PASSWORD: password
-volumes:
-  dbdata:
+- **docker-compose up**: Start the services defined in the Docker Compose file. 
 
-```
+- **docker-compose up -d**: Start the services in the background (detached mode).
 
-3. Check the validity of the file 
-```
-docker-compose config
-```
+- **docker-compose down**: Stop and remove all containers, networks, and volumes defined in the Docker Compose file.
 
-4. Run the docker-compose file in the detached mode
+- **docker-compose ps**: List the running containers of the services defined in the Docker Compose file.
 
-```
-Docker-compose up -d
-```
+- **docker-compose logs**: View the logs of the services.
 
-5. Check your images & containers and you will find new images & containers 
+- **docker-compose build**: Build or rebuild the services defined in the Docker Compose file.
 
-```
-Docker images
-Docker ps 
-```
-Get to the link in the browser: [http://localhost:8000/](http://localhost:8000/) and login with the root username and password. 
+- **docker-compose stop**: Stop the services defined in the Docker Compose file.
 
-### Docker-compose Common Commands
+- **docker-compose start**: Start the stopped services defined in the Docker Compose file.
 
-- Starts existing containers for a service.
-`docker-compose start`
+- **docker-compose restart**: Restart the services defined in the Docker Compose file.
 
-- Stops running containers without removing them.
-`docker-compose stop`
+- **docker-compose exec**: Execute a command inside a running container.
 
-- Pauses running containers of a service.
-`docker-compose pause`
+- **docker-compose down -v**: Stop and remove all containers, networks, and volumes defined in the Docker Compose file, including volumes.
 
-- Unpauses paused containers of a service.¶
-`docker-compose unpause`
+- **docker-compose config**: Validate and view the composed configuration file.
 
-- Lists containers.
-`docker-compose ps`
 
-- Builds, (re)creates, starts, and attaches to containers for a service.
-`docker-compose up`
-
-- Stops containers and removes containers, networks, volumes, and images created by up.
-`docker-compose down`
-
-### Exercise 
+## Exercise 
 1. Follow the guidelines available at this link and get more familiar with Docker Compose by completing the task. 
   [Get Started with Docker Compose](https://docs.docker.com/compose/gettingstarted/) 
 
