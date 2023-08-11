@@ -365,10 +365,6 @@ a.accordion-toggle, a.accordion-collapsed {
 background-color: #347DBE;
 }
 
-.active {
-    background-color: red;
-    color:white;
-}
 .nav li a {
     font-size: 12px;
     line-height: 18px;
