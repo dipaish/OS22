@@ -357,14 +357,18 @@ a.accordion-toggle, a.accordion-collapsed {
 }
 
 .nav a:hover, .nav li.active > a {
-    background-color: #f10f0f;
+    background-color: #8D8D8D;
     color: #f5f5f5;
 }
 
 .nav > li.active > a  {
-background-color: #be3434;
+background-color: #347DBE;
 }
 
+.active {
+    background-color: red;
+    color:white;
+}
 .nav li a {
     font-size: 12px;
     line-height: 18px;
