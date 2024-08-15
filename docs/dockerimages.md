@@ -7,11 +7,10 @@ Previously, we utilized **images** from the **registry (Dockerhub)** and instruc
 
  **Let's begin by listing the local images available on the device and understand important concepts about images.**
 ```bash
-$ docker images
+docker images
 ```
-**Example**
-```
-$ docker images
+**Example Output**
+```bash
 REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
 alpine        latest    9c6f07244728   2 weeks ago     5.54MB
 hello-world   latest    feb5d9fea6a5   11 months ago   13.3kB
@@ -27,7 +26,7 @@ Above is a list of **images** that I've pulled from the registry. You will have 
 For example you could pull a specific version of `ubuntu` image as follows:
 
 ```bash
-$ docker pull ubuntu:20.04
+docker pull ubuntu:24.04
 ```
 
 - If you do not specify the version number of the image then, as mentioned, the Docker client will default to a version named `latest`.
@@ -35,15 +34,18 @@ $ docker pull ubuntu:20.04
 ***For example to get the latest version of ubuntu image:***
 
 ```bash
-$ docker pull ubuntu
+docker pull ubuntu
 ```
 ***Some Tips on Docker Images***
 - You can get a new Docker image  from a registry (such as the **Docker hub**) or create your own. 
 - There are hundreds of thousands of images available on [Docker Store](https://store.docker.com). 
 - You can also **search for images** directly from the command line using `docker search`.<br> <br>
  ***For example, if you want to search a MySQL related Image*** 
+```bash
+docker search mysql
 ```
-$ docker search mysql
+**Output**
+```bash
 NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
 mysql                           MySQL is a widely used, open-source relation…   13077     [OK]
 mariadb                         MariaDB Server is a high performing open sou…   5001      [OK]
@@ -158,7 +160,9 @@ Now that you have a better understanding of images and Dockerfile, it's time to 
 You will state by Creating a new directory for your Docker project and navigate to it in your terminal or command prompt.
 
 ```bash
-$ mkdir my_docker_project
+mkdir my_docker_project
+```
+```bash
 cd my_docker_project
 ```
 **Step 2: Create your application code**

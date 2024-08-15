@@ -17,6 +17,7 @@ Once you are done installing Docker, test your Docker installation by running th
 ```
 docker run hello-world
 ```
+**Example Output**
 ```bash
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -48,10 +49,12 @@ The `pull` command fetches the alpine **image** from the **Docker registry** and
 ```
 docker images
 ```
+**Example Output**
+```bash
 REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 alpine                 latest              c51f86c28340        4 weeks ago         1.109 MB
 hello-world             latest              690ed74de00f       5 months ago        960 B
-
+```
 
 ### Docker Run
 Great! Let's now run a Docker **container** based on this image. To do that you are going to use the `docker run` command.
@@ -59,6 +62,8 @@ Great! Let's now run a Docker **container** based on this image. To do that you 
 ```
 docker run alpine ls -l
 ```
+**Example Output**
+```bash
 total 48
 drwxr-xr-x    2 root     root          4096 Mar  2 16:20 bin
 drwxr-xr-x    5 root     root           360 Mar 18 09:47 dev
@@ -67,7 +72,7 @@ drwxr-xr-x    2 root     root          4096 Mar  2 16:20 home
 drwxr-xr-x    5 root     root          4096 Mar  2 16:20 lib
 ......
 ......
-
+```
 What happened? Behind the scenes, a lot of stuff happened. When you call `run`,
 1. The Docker client contacts the Docker daemon.
 2. The Docker daemon checks local store if the image (alpine in this case) is available locally, and if not, downloads it from Docker Store. (Since we have issued `docker pull alpine` before, the download step is not necessary)
