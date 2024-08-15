@@ -15,7 +15,9 @@ The *getting started* guide on Docker has detailed instructions for setting up D
 Once you are done installing Docker, test your Docker installation by running the following:
 
 ```
-$ docker run hello-world
+docker run hello-world
+```
+
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
 03f4658f8b78: Pull complete
@@ -26,7 +28,7 @@ Status: Downloaded newer image for hello-world:latest
 Hello from Docker.
 This message shows that your installation appears to be working correctly.
 ...
-```
+
 ## The Docker Dashboard
 It provides a quick view of the containers running on your machine. You have quick access to container logs, and you can get a shell inside the container. You can easily manage containers, such as stopping, starting, or removing them. 
 ![Docker Dashboard](assets/docker.png "Docker Dashboard").
@@ -37,24 +39,26 @@ In this section, you will run an [Alpine Linux](http://www.alpinelinux.org/) con
 
 To get started, let's run the following in our terminal:
 ```
-$ docker pull alpine
+docker pull alpine
 ```
 
 > **Note:** Depending on how you've installed docker on your system, you might see a `permission denied` error after running the above command. Try the commands from the Getting Started tutorial to [verify your installation](https://docs.docker.com/engine/getstarted/step_one/#/step-3-verify-your-installation). If you're on Linux, you may need to prefix your `docker` commands with `sudo`. Alternatively you can [create a docker group](https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group) to get rid of this issue.
 
 The `pull` command fetches the alpine **image** from the **Docker registry** and saves it in your system. You can use the `docker images` command to see a list of all images on your system.
 ```
-$ docker images
+docker images
+```
 REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 alpine                 latest              c51f86c28340        4 weeks ago         1.109 MB
 hello-world             latest              690ed74de00f       5 months ago        960 B
-```
+
 
 ### Docker Run
 Great! Let's now run a Docker **container** based on this image. To do that you are going to use the `docker run` command.
 
 ```
-$ docker run alpine ls -l
+docker run alpine ls -l
+```
 total 48
 drwxr-xr-x    2 root     root          4096 Mar  2 16:20 bin
 drwxr-xr-x    5 root     root           360 Mar 18 09:47 dev
@@ -63,7 +67,7 @@ drwxr-xr-x    2 root     root          4096 Mar  2 16:20 home
 drwxr-xr-x    5 root     root          4096 Mar  2 16:20 lib
 ......
 ......
-```
+
 What happened? Behind the scenes, a lot of stuff happened. When you call `run`,
 1. The Docker client contacts the Docker daemon.
 2. The Docker daemon checks local store if the image (alpine in this case) is available locally, and if not, downloads it from Docker Store. (Since we have issued `docker pull alpine` before, the download step is not necessary)
@@ -75,14 +79,16 @@ When you run `docker run alpine`, you provided a command (`ls -l`), so Docker st
 Let's try something more exciting.
 
 ```
-$ docker run alpine echo "hello from alpine"
-hello from alpine
+docker run alpine echo "hello from alpine"
+
 ```
+hello from alpine
+
 OK, that's some actual output. In this case, the Docker client dutifully ran the `echo` command in our alpine container and then exited it. If you've noticed, all of that happened pretty quickly. Imagine booting up a virtual machine, running a command and then killing it. Now you know why they say containers are fast!
 
 Try another command.
 ```
-$ docker run alpine /bin/sh
+docker run alpine /bin/sh
 ```
 
 Wait, nothing happened! Is that a bug? Well, no. These interactive shells will exit after running any scripted commands, unless they are run in an interactive terminal - so for this example to not exit, you need to `docker run -it alpine /bin/sh`.
@@ -93,30 +99,33 @@ You are now inside the container shell and you can try out a few commands like `
 Ok, now it's time to see the `docker ps` command. The `docker ps` command shows you all containers that are currently running.
 
 ```
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+docker ps
 ```
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
 
 Since no containers are running, you see a blank line. Let's try a more useful variant: `docker ps -a`
 
 ```
-$ docker ps -a
+docker ps -a
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
 36171a5da744        alpine              "/bin/sh"                5 minutes ago       Exited (0) 2 minutes ago                        fervent_newton
 a6a9d46d0b2f        alpine             "echo 'hello from alp"    6 minutes ago       Exited (0) 6 minutes ago                        lonely_kilby
 ff0a5c3750b9        alpine             "ls -l"                   8 minutes ago       Exited (0) 8 minutes ago                        elated_ramanujan
 c317d0a9e3d2        hello-world         "/hello"                 34 seconds ago      Exited (0) 12 minutes ago                       stupefied_mcclintock
-```
+
 
 What you see above is a list of all containers that you ran. Notice that the `STATUS` column shows that these containers exited a few minutes ago. You're probably wondering if there is a way to run more than just one command in a container. Let's try that now:
 
 ```
-$ docker run -it alpine /bin/sh
+docker run -it alpine /bin/sh
+```
 / # ls
 bin      dev      etc      home     lib      linuxrc  media    mnt      proc     root     run      sbin     sys      tmp      usr      var
 / # uname -a
 Linux 97916e8cb5dc 4.4.27-moby #1 SMP Wed Oct 26 14:01:48 UTC 2016 x86_64 Linux
-```
+
 Running the `run` command with the `-it` flags attaches us to an interactive tty in the container. Now you can run as many commands in the container as you want. Take some time to run your favorite commands.
 
  To find out more about `run`, use `docker run --help` to see a list of all flags it supports. As you proceed further, we'll see a few more variants of `docker run`.
@@ -154,7 +163,7 @@ In the last section, you saw a lot of Docker-specific jargon which might be conf
 ***Example Launching a container in detached mode*** 
 
 ```
-$ docker run --name cname -e MYSQL_ROOT_PASSWORD=yourpassword -d mysql:tag
+docker run --name cname -e MYSQL_ROOT_PASSWORD=yourpassword -d mysql:tag
 
 ```
 In the above command:
