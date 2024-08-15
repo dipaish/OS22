@@ -17,7 +17,7 @@ Once you are done installing Docker, test your Docker installation by running th
 ```
 docker run hello-world
 ```
-
+```bash
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
 03f4658f8b78: Pull complete
@@ -28,7 +28,7 @@ Status: Downloaded newer image for hello-world:latest
 Hello from Docker.
 This message shows that your installation appears to be working correctly.
 ...
-
+```
 ## The Docker Dashboard
 It provides a quick view of the containers running on your machine. You have quick access to container logs, and you can get a shell inside the container. You can easily manage containers, such as stopping, starting, or removing them. 
 ![Docker Dashboard](assets/docker.png "Docker Dashboard").
@@ -175,8 +175,8 @@ In the above command:
 
 ***Remove all containers since you don't need them any more. Remember to stop before deleting a container*** 
 ```bash
-- docker stop continaername/id
-- docker remove continaername/id
+docker stop continaername/id
+docker remove continaername/id
 ```
 
 ## Docker Commands Cheat Sheet
