@@ -204,7 +204,7 @@ RUN chmod +x hello.sh
 
 # It sets the default command to be executed when a container starts from the built image. In this case, it runs the hello.sh script.
 
-CMD ./hello.sh
+CMD ["./hello.sh"]
 ``` 
 
 **Step 4:Build the Docker Image**
@@ -255,7 +255,7 @@ RUN apk update && \
 chmod +x hello.sh 
 
 # it runs the script at the start-up
-CMD ./hello.sh
+CMD ["./hello.sh"]
 ```
 ***Now build the image again  as my-first-image2 without nano. Since vi is already available, we don't necessarily need the nano text editor.***
 ```
@@ -278,26 +278,34 @@ Here's why the size reduction occurs:
 By minimizing the number of unnecessary layers and reducing the size of the Docker image, you can create more efficient and lightweight images. This practice is particularly important when building production-ready containers to optimize resource usage and improve deployment times.
 
 ## Push your first image
-Now that we have created and tested our image, we can push it to [Docker Hub](https://hub.docker.com/).
+Now that we have created and tested our image, we can push it to [Docker Hub](https://hub.docker.com/). You need to login to the Docker Hub which means you need to have a Docke Hub account. 
 
-***First you have to login to your Docker Hub account***
+***Step 1:  Login to Docker Hub (use your email id instead of username)***
 ```bash
 docker login
 ```
-Enter `YOUR_USERNAME` and `password` when prompted. 
+Enter `Your_DockerHUb_Email_ID` and `password` when prompted. 
 ```bash
  docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: deepakkc
+Username: youremail@email.com
 Password: 
 Login Succeeded
 ```
-Now all you have to do is:
+***Step 2:  Tag Your Image***
+
+- You are required to tag the image with your Docker Hub username and repository name 
+
+**DockerHubusername/imagename:tag**
 
 ```bash
 docker tag  my-first-image2 deepakkc/my-first-image2
-docker push deepakkc/my-first-image2
+```
 
+***Step 3:  Push Your Image***
+- Push the tagged image to Docker Hub.
+```
+docker push deepakkc/my-first-image2
 ```
 **Now yow you may delete your image and run it again. This time it will pull image from Docker Hub.**
 
@@ -325,17 +333,21 @@ When you update your application, fix bugs, implement security updates, or make 
 
 1. **Build the Image**: Use the `docker build` command to build the updated Docker image.
 ```
-docker build -t my_first_image:v1.1 .
+docker build -t my_first_image2:v1.1 .
 ```
 2. **Tag the Image with a New Version**: Tag the new image version using `docker tag` with a relevant version number or tag.
 
 ```
 docker tag old_image_name:old_version new_image_name:new_version
+
+docker tag my_first_image2 deepakkc/my_first_image2:v1.1
 ```
 Replace old_image_name and old_version with the current image name and version, and set new_image_name and new_version to the desired new name and version for the image.
 
 3. **Push to Registry**: Use `docker push` to upload the new image version to your container registry.
-
+```
+docker push deepakkc/my_first_image2:v1.1 
+```
 If you haven't logged in to the container registry where you want to push the image, use the docker login command to authenticate and then push the new image version:
 
 ```
@@ -387,9 +399,9 @@ By following these steps, you can keep your Docker image up-to-date with the lat
     - Example: `docker system prune`
 
 ## Exercise
-1. **Task 1: Building and Pushing a Docker Image**
+1. ***Task 1: Building and Pushing a Docker Image***
 
-   Write a Dockerfile to build a Docker image using Ubuntu. Include the MySQL database service in your image and push it to DockerHub. Tag the image as "username/ubuntu-git:1.1".
+   Write a Dockerfile to build a Docker image using Ubuntu. Include the MySQL database service in your image and push it to DockerHub. Tag the image as "username/ubuntuMySQL:1.1".
 
 2. **Task 2: Running and Verifying the Image**
 
