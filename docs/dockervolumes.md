@@ -129,6 +129,11 @@ For example:
 ```
 In this example, the "Mountpoint" field shows that the named volume my_named_volume is located at /var/lib/docker/volumes/my_named_volume/_data on the host system. This is where the data for the named volume is stored.
 
+**On Windows, Docker volumes are located at the following path**:
+`\\wsl.localhost\docker-desktop-data\data\docker\volumes`
+
+This path is accessible via the Windows Subsystem for Linux (WSL), where Docker Desktop stores its data.
+
 ### Docker Bind Mounts
 
 Bind mounts are directories or files mounted from the host system inside a Docker container. Any changes performed in either the container or the host system are immediately reflected in both places when using bind mounts. This allows for smooth file and data access between the host and the container.
@@ -165,7 +170,8 @@ Let's illustrate a practical use case of using a bind mount. Assume we have a we
 
 ```bash
 # Assuming our web app code is in /path/to/my_web_app
-docker run -d --name web_app -v /path/to/my_web_app:/usr/share/nginx/html nginx
+docker run -d -v "$(pwd)/web_app:/usr/share/nginx/html" -p 8084:80 nginx
+
 ```
 
 In this example, we're running an Nginx web server container (nginx image) and mounting our local web app code directory (/path/to/my_web_app) into the container at /usr/share/nginx/html. Any changes made to the web app on the host will immediately reflect inside the container, simplifying the development and testing process.
