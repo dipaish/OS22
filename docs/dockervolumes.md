@@ -130,9 +130,10 @@ For example:
 In this example, the "Mountpoint" field shows that the named volume my_named_volume is located at /var/lib/docker/volumes/my_named_volume/_data on the host system. This is where the data for the named volume is stored.
 
 **On Windows, Docker volumes are located at the following path**:
-`\\wsl.localhost\docker-desktop-data\data\docker\volumes`
+`\\wsl.localhost\docker-desktop-data\data\docker\volumes` or 
 
-This path is accessible via the Windows Subsystem for Linux (WSL), where Docker Desktop stores its data.
+`\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes`
+
 
 ### Docker Bind Mounts
 
