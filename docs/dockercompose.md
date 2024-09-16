@@ -64,17 +64,18 @@ services:
     image: nginx
     ports:
       - "80:80"
-  
   database:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"   
 ```
 - `services`: This section defines the different services (containers) that will be part of our multi-container application.
 
   - `webserver`: This service uses the latest version of the Nginx image available on Docker Hub. The `ports` section maps the host's port 80 to the container's port 80, allowing access to the web server from the host machine.
 
-  - `database`: This service uses the latest version of the MySQL image available on Docker Hub. The `environment` section sets up environment variables for the MySQL database, in this case the root password.
+  - `database`: This service uses the latest version of the MySQL image available on Docker Hub. The `environment` section sets up environment variables for the MySQL database, in this case the root password and the`ports` section maps the host's port 3306 to the container's port 3306. 
 
 **Step 4: Check the validity of a Docker Compose file**
 
@@ -141,7 +142,7 @@ docker-compose ps
 ```
 In this case, we can further verify that the Nginx server is up and running by opening our web browser and navigating to http://localhost:80. 
 
-We can also login to MySQL using the following command: 
+We can also login to MySQL using the following command: or you can use tools such as phpMyadmin or MySQL Workbench. 
 
 ```bash
 docker exec -it your_container_id mysql -u root -p 
@@ -159,7 +160,7 @@ Create a new directory and create the following files inside it:
 
 **Dockerfile**: Custom Dockerfile to build the Apache image.
 
-**index.php**: A simple PHP file to test the web application. You can copy the following code and save it as ```index.php```.
+**index.php**: A simple PHP file to test the web application. You can create a folder named **public**, copy the following code and save it as ```index.php```.
 
 ```php
 <?php
@@ -175,28 +176,24 @@ We'll make a ```Dockerfile``` that uses the official ```PHP Apache image``` (php
 # Use the official PHP Apache image as the base image
 FROM php:7.4-apache
 
-# Install system dependencies and PHP extensions
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd mysqli pdo pdo_mysql && \
+# Install PHP MySQL extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
-# Copy the application code to the container
-COPY index.php .
+# Copy the 'public' folder from the host to the container
+COPY public/ .
 
-# Ensure Apache runs as a non-root user (security best practice)
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+# Ensure the appropriate file permissions for Apache (non-root)
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
 
 # Expose port 80 for Apache
 EXPOSE 80
 
-# Start Apache server
+# Start Apache server as the main process
 CMD ["apache2-foreground"]
 
 ```
