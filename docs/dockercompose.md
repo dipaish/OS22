@@ -59,23 +59,17 @@ In this example, we will define two services: **webserver** and **database.**
 **Example 1: A docker compose file (docker-compose.yml)**
 
 ```yaml
-version:'3'
-
 services:
   webserver:
     image: nginx
     ports:
       - "80:80"
-
+  
   database:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-
 ```
-
-- `version: '3'`: This specifies the version of the Docker Compose file syntax being used. In this case, it's version 3, which indicates the compatibility with specific features and configurations.
-
 - `services`: This section defines the different services (containers) that will be part of our multi-container application.
 
   - `webserver`: This service uses the latest version of the Nginx image available on Docker Hub. The `ports` section maps the host's port 80 to the container's port 80, allowing access to the web server from the host machine.
@@ -96,6 +90,46 @@ Now that we have defined the services in the docker-compose.yml file, it's time 
 
 ```bash
 docker-compose up -d
+```
+We can improve the above docker-compose.yml file with the use of separate **.env** files for passwords and other sensitive parameters that should not reside within the configuration file itself. This is done to secure the credentials and also to ease the configuration. **Create a .env file** outside your project directory and add these variables there and use it in the docker- compose.yml for keeping it safe as well as flexible. 
+```bash
+# Define the services that make up your application
+services:
+  # Web server service using the latest Nginx image
+  webserver:
+    image: nginx:latest  # Use the latest stable version of Nginx
+    ports:
+      - "80:80"  # Map port 80 on the host to port 80 on the container
+    restart: always  # Always restart the container if it stops
+    networks:
+      - webnet  # Connect to the 'webnet' network
+
+  # Database service using MySQL 8.0
+  database:
+    image: mysql:8.0  # Use MySQL version 8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Root password from environment variable
+      MYSQL_DATABASE: mydatabase  # Name of the default database
+      MYSQL_USER: user  # Username for the database
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # User password from environment variable
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 on the container
+    restart: always  # Always restart the container if it stops
+    networks:
+      - webnet  # Connect to the 'webnet' network
+
+# Define the network used by the services
+networks:
+  webnet:  # Create a custom network named 'webnet'
+
+```
+***.env file***
+```bash
+# .env file
+MYSQL_ROOT_PASSWORD=your_root_password
+MYSQL_DATABASE=mydatabase
+MYSQL_USER=user
+MYSQL_PASSWORD=your_user_password
 ```
 
 **Step 6: Verify the Running Containers**
@@ -137,18 +171,27 @@ echo "Hello, World!";
 
 We'll make a ```Dockerfile``` that uses the official ```PHP Apache image``` (php:7.4-apache) as our base image and ```install the MySQL extensions``` required for PHP to connect with the MySQL database. The ```working directory``` for serving web files with Apache will then be configured to ```/var/www/html```. The index.php file is then copied from the local directory to the container's /var/www/html directory. We will open Port 80 to give access to the web server. Finally, we will use the ```apache2-foreground``` command to start the Apache server within the container. 
 
-```docker
+```bash
 # Use the official PHP Apache image as the base image
 FROM php:7.4-apache
 
-# Install MySQL extensions for PHP
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install system dependencies and PHP extensions
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) gd mysqli pdo pdo_mysql && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
 # Copy the application code to the container
 COPY index.php .
+
+# Ensure Apache runs as a non-root user (security best practice)
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 # Expose port 80 for Apache
 EXPOSE 80
@@ -159,32 +202,31 @@ CMD ["apache2-foreground"]
 ```
 **Step 3: Create docker-compose.yml**
 ```yaml
-version: '3'
-
 services:
   webserver:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # The directory containing the Dockerfile
+      dockerfile: Dockerfile  # Dockerfile to use for building the web server
     ports:
-      - "80:80"
+      - "80:80"  # Map port 80 on the host to port 80 in the container, first par is host port on the host machine while second part is the port inside container
     volumes:
-      - ./index.php:/var/www/html/index.php
+      - ./index.php:/var/www/html/index.php  # Bind-mount local index.php
     depends_on:
-      - database
+      - database  # Ensure the database service starts before the webserver
 
   database:
-    image: mysql:latest
+    image: mysql:latest  # Use the latest MySQL image from Docker Hub
     environment:
-      MYSQL_ROOT_PASSWORD: mysecretpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: myuserpassword
+      MYSQL_ROOT_PASSWORD: mysecretpassword  # Set the root password for MySQL
+      MYSQL_DATABASE: mydatabase  # Create a default database
+      MYSQL_USER: myuser  # Create a user for the database
+      MYSQL_PASSWORD: myuserpassword  # Set the password for the created user
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # Persist MySQL data using a named volume
 
 volumes:
-  db_data:
+  db_data:  # Define the named volume to persist database data
+
 ```
 In the above Docker Compose file, we have defined two services: `webserver` and `database`. The `webserver` service is built using the custom Dockerfile we created earlier. It is configured to map port 80 on the host to port 80 on the container, allowing it to serve the PHP application. Additionally, the `index.php` file is mounted as a volume inside the container, enabling live code changes without the need to rebuild the image.
 
