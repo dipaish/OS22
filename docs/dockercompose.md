@@ -207,7 +207,7 @@ services:
     ports:
       - "80:80"  # Map port 80 on the host to port 80 in the container, first par is host port on the host machine while second part is the port inside container
     volumes:
-      - ./public:/var/www/html/index.php  # Bind-mount local index.php
+      - ./public:/var/www/html # Mount the 'public' directory from the host system to '/var/www/html' in the container.
     depends_on:
       - database  # Ensure the database service starts before the webserver
 
